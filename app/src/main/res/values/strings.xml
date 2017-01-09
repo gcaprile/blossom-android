@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Blossom</string>
+    <string name="intro_text_1">In the United States, hurdles around access to quality education in impoverished, low-income, immigrant, and English as a second language communities perpetuate a cycle of poverty, illiteracy, and low wages. The lack of educational opportunities and resources, exposure to non-traditional educational opportunities, and low high school graduation rates in these very communities have long term effects that extend beyond the individual student.</string>
+    <string name="intro_text_2">Inspired by First Lady Michelle Obama’s “Let Girls Learn” initiative, the American Bar Association Young Lawyers Division (ABA YLD) has created this mobile app to be a resource to under-served and often overlooked communities to combat the crisis of unequal access to education. The goal of this initiatives is to demonstrate the value of obtaining an education and encouraging its pursuit.</string>
+    <string name="intro_text_3">With your help and participation, we will bridge a nationwide educational gap, in order to equip students with the knowledge, skills, and exposure that they need to break down educational barriers, and fill voids in their communities. Because of you, we will change the trajectory of success for students across the world.</string>
+    <string name="intro_title_1">YOUR LIFE</string>
+    <string name="intro_title_2">YOUR WORLD</string>
+    <string name="intro_title_3">YOUR VISION</string>
+    <string name="get_started">Get Started</string>
+    <string name="main_button_text_1">Help me find a career</string>
+    <string name="main_button_text_2">Begin my career journey</string>
+    <string name="read_more">Read More</string>
+    <string name="find_a_career">FIND A CAREER</string>
+    <string name="search">SEARCH</string>
+    <string name="videos">Videos</string>
+    <string name="generally_you_need">Generally you\'ll need:</string>
+    <string name="tell_us">TELL US ABOUT YOURSELF</string>
+    <string name="more_info">More Info</string>
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.findigital.blossom">
+
+    <!-- Allows applications to connent network (Required) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Allows applications to access information about networks (Required) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Allows read only access to phone state. (Required For analytics) -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- Allows access to the list of accounts in the Accounts Service.
+    (Required For Oauth login and Google login using BuiltUILoginController) -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- Allows an application to request authtokens from the AccountManager.
+    (Required For Oauth login and Google login using BuiltUILoginController) -->
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <!-- Allows an app to access precise location from location sources. (Required For location) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Allows an app to access approximate location derived from network location sources. (Required For location) -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Allow the application to access Google web-based services -->
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- To check network availability. Called every time when network
+             connection state changes -->
+        <receiver
+            android:name="com.raweng.built.ConnectionStatus"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" >
+                </action>
+            </intent-filter>
+        </receiver>
+        <!-- To delete expired cache from built cache folder -->
+        <receiver
+            android:name="com.raweng.built.BuiltClearCache"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="StartClearingCache" >
+                </action>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.MainActivity" />
+        <activity
+            android:name=".fragments.IntroFragmentActivity" />
+        <activity
+            android:name=".fragments.CareersFragmentActivity" />
+        <activity
+            android:name=".fragments.CareerDetailFragment" />
+        <activity
+            android:name=".fragments.SurveyFragmentActivity" />
+        <activity
+            android:name=".fragments.SurveyResultFragmentActivity" />
+    </application>
+
+</manifest>
