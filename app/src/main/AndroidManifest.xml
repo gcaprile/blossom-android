@@ -75,6 +75,8 @@
             android:name=".fragments.SurveyFragmentActivity" />
         <activity
             android:name=".fragments.SurveyResultFragmentActivity" />
+        <activity
+            android:name=".fragments.SignUpFragmentActivity" />
     </application>
 
 </manifest>

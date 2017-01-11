@@ -15,4 +15,8 @@
     <color name="blueBkg">#4A90E2</color>
     <color name="blueIntro">#3023AE</color>
     <color name="responseOption">#3B73B4</color>
+    <color name="facebook">#3B579D</color>
+    <color name="facebookDark">#3252a3</color>
+    <color name="twitter">#00ACED</color>
+    <color name="twitterDark">#007cab</color>
 </resources>

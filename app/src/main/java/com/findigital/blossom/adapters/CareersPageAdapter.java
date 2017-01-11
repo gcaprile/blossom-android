@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.raweng.built.BuiltObject;
 import com.raweng.twitter4j.internal.org.json.JSONException;
 import com.raweng.twitter4j.internal.org.json.JSONObject;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -75,6 +78,7 @@ public class CareersPageAdapter extends PagerAdapter {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
 
         txtCareerName.setText(careerName);
         txtCareerHeader.setText(careerHeader);

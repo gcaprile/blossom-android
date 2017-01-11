@@ -7,14 +7,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.findigital.blossom.R;
 import com.findigital.blossom.fragments.SurveyResultFragmentActivity;
@@ -22,12 +19,6 @@ import com.findigital.blossom.helpers.DbHelper;
 import com.findigital.blossom.models.SurveyCareerResult;
 import com.findigital.blossom.models.SurveyQuestion;
 import com.findigital.blossom.models.SurveyResponse;
-import com.findigital.blossom.models.SurveyResult;
-import com.raweng.built.BuiltObject;
-import com.raweng.okhttp.Response;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -123,7 +114,6 @@ public class QuestionsPageAdapter extends PagerAdapter {
                     String totalPoints = "0";
 
                     for (SurveyCareerResult s: data) {
-                        System.out.println(s.getCareer() + ": " + s.getPoints());
                         totalPoints = s.getPoints();
                     }
 

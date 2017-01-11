@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.findigital.blossom.R;
 import com.findigital.blossom.fragments.CareersFragmentActivity;
@@ -115,10 +114,6 @@ public class MainActivity extends Activity {
                             career.setCareerIntro(item.get("career_intro").toString());
 
                             dbHelper.addCareer(career);
-                        }
-
-                        for (Career c: dbHelper.getAllCareers()) {
-                            System.out.println(c.getId());
                         }
 
                     }else{

@@ -1,32 +1,25 @@
 package com.findigital.blossom.adapters;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-
-import com.findigital.blossom.R;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import com.findigital.blossom.fragments.VideoPlayerFragment;
 import com.raweng.built.BuiltObject;
 
 import java.util.List;
 
 /**
- * Created by 14-AB109LA on 29/12/2016.
+ * ABA
+ * Created by Ramon Zuniga on 29/12/2016.
+ * Copyright © 2016 FinDigital. All rights reserved.
  */
 
-public class VideosPageAdapter extends PagerAdapter {
+public class VideosPageAdapter extends FragmentPagerAdapter {
 
-    Context context;
-    LayoutInflater inflater;
     List<BuiltObject> videos;
 
-    public VideosPageAdapter(Context context, List<BuiltObject> videos) {
-        this.context = context;
+    public VideosPageAdapter(FragmentManager fm, List<BuiltObject> videos) {
+        super(fm);
         this.videos = videos;
     }
 
@@ -34,43 +27,11 @@ public class VideosPageAdapter extends PagerAdapter {
     public int getCount() { return videos.size(); }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == object;
-    }
-
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-
-        inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(R.layout.videospager_item, container,
-                false);
-
+    public Fragment getItem(int position) {
         String videoUrl = videos.get(position).get("youtube_url").toString();
         videoUrl = videoUrl.substring(videoUrl.lastIndexOf("=") + 1);
 
-        String frameVideo = "<iframe width='100%' height='200px' src='https://www.youtube.com/embed/" + videoUrl + "' frameborder='0' allowfullscreen></iframe>";
-
-        WebView displayVideo = (WebView) itemView.findViewById(R.id.webView);
-        displayVideo.setWebViewClient(new WebViewClient(){
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return false;
-            }
-        });
-        WebSettings webSettings = displayVideo.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        displayVideo.setBackgroundColor(Color.TRANSPARENT);
-        displayVideo.loadData(frameVideo, "text/html", "utf-8");
-
-        container.addView(itemView);
-
-        return itemView;
+        return VideoPlayerFragment.newInstance(videoUrl);
     }
 
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        // Remove viewpager_item.xml from ViewPager
-        container.removeView((View) object);
-    }
 }
