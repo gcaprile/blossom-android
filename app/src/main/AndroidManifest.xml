@@ -77,6 +77,12 @@
             android:name=".fragments.SurveyResultFragmentActivity" />
         <activity
             android:name=".fragments.SignUpFragmentActivity" />
+        <activity
+            android:name=".fragments.MenuFragmentActivity" />
+        <activity
+            android:name=".fragments.SchollyFragmentActivity" />
+        <activity
+            android:name=".fragments.LoginFragmentActivity" />
     </application>
 
 </manifest>

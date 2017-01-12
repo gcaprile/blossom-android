@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.findigital.blossom.R;
 import com.findigital.blossom.fragments.CareersFragmentActivity;
 import com.findigital.blossom.fragments.IntroFragmentActivity;
+import com.findigital.blossom.fragments.MenuFragmentActivity;
 import com.findigital.blossom.fragments.SurveyFragmentActivity;
 import com.findigital.blossom.helpers.API;
 import com.findigital.blossom.helpers.DbHelper;
@@ -33,6 +36,7 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     DbHelper dbHelper;
+    Animation slideLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,16 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(survey);
+            }
+        });
+
+        ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MenuFragmentActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
             }
         });
     }

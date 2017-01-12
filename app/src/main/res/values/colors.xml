@@ -19,4 +19,6 @@
     <color name="facebookDark">#3252a3</color>
     <color name="twitter">#00ACED</color>
     <color name="twitterDark">#007cab</color>
+    <color name="menuBkg">#9013FE</color>
+    <color name="menuItemDivider">#6e00cf</color>
 </resources>

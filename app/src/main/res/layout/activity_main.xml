@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/mainBkg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <ImageView android:id="@+id/cover"
         android:layout_weight="2"
         android:src="@drawable/start"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
+    <ImageButton
+        android:id="@+id/btnMenu"
+        android:src="@drawable/ic_navigation_menu"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/roundcorner"
+        android:padding="1dp" />
+
     <LinearLayout
         android:layout_weight="1"
+        android:layout_below="@id/cover"
         android:padding="15dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -35,28 +47,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <Button
+            android:id="@+id/btnNavFindCareer"
+            android:background="@drawable/button"
+            android:textColor="@color/white"
+            android:text="@string/main_button_text_1"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <Button
+            android:id="@+id/btnNavCareers"
+            android:background="@drawable/button"
+            android:textColor="@color/white"
+            android:text="@string/main_button_text_2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnNavFindCareer"
-        android:background="@drawable/button"
-        android:textColor="@color/white"
-        android:text="@string/main_button_text_1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-
-    <Button
-        android:id="@+id/btnNavCareers"
-        android:background="@drawable/button"
-        android:textColor="@color/white"
-        android:text="@string/main_button_text_2"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="35dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-
-</LinearLayout>
+</RelativeLayout>
