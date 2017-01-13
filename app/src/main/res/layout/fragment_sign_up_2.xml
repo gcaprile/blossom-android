@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/blueBkg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:focusable="true"
+        android:padding="30dp"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="CREATE AN ACCOUNT"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/editUserFirstName"
+                android:hint="First Name"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:inputType="textCapSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/editUserLastName"
+                android:hint="Last Name"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:inputType="textCapSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <Button android:id="@+id/btnCreateAccount"
+            android:text="Create Account"
+            android:background="@drawable/button"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:text="2/2"
+            android:gravity="right"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</ScrollView>

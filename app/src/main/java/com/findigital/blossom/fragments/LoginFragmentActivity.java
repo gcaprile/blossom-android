@@ -68,7 +68,7 @@ public class LoginFragmentActivity extends FragmentActivity {
                             } else {
                                 System.out.println(error);
                                 Toast.makeText(getApplicationContext(),
-                                        error.getErrorMessage(),
+                                        error.getErrorMessage() + " Check your Email and Password.",
                                         Toast.LENGTH_SHORT).show();
                                 // login failed
                                 // refer to the 'error' object for more details

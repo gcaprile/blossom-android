@@ -78,6 +78,8 @@
         <activity
             android:name=".fragments.SignUpFragmentActivity" />
         <activity
+            android:name=".fragments.SignUp2FragmentActivity" />
+        <activity
             android:name=".fragments.MenuFragmentActivity" />
         <activity
             android:name=".fragments.SchollyFragmentActivity" />
