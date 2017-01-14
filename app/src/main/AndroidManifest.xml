@@ -35,6 +35,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <!-- To check network availability. Called every time when network
              connection state changes -->
         <receiver
@@ -63,6 +67,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.MainActivity" />
         <activity
@@ -85,6 +90,9 @@
             android:name=".fragments.SchollyFragmentActivity" />
         <activity
             android:name=".fragments.LoginFragmentActivity" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="754fe49fab28b562c04f2b1a6309549662655891" />
     </application>
 
 </manifest>

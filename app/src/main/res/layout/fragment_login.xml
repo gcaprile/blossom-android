@@ -22,18 +22,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button android:id="@+id/btnFacebookLogin"
-            android:text="SIGN UP WITH FACEBOOK"
-            android:background="@drawable/facebook_button"
-            android:textColor="@color/white"
-            android:layout_marginTop="20dp"
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btnFacebookLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="20dp"
+            android:textSize="17sp"
+            android:layout_marginTop="20dp" />
 
-        <Button android:id="@+id/btnTwitterLogin"
-            android:text="SIGN UP WITH TWITTER"
-            android:background="@drawable/twitter_button"
-            android:textColor="@color/white"
+        <com.twitter.sdk.android.core.identity.TwitterLoginButton
+            android:id="@+id/btnTwitterLogin"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
