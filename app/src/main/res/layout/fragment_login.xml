@@ -12,6 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageButton
+            android:id="@+id/btnMenu"
+            android:src="@drawable/ic_navigation_menu_blue"
+            android:layout_gravity="right"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:background="@drawable/roundcorner_white"
+            android:padding="1dp" />
+
         <TextView
             android:id="@+id/txtLoginTitle"
             android:text="LOGIN"
@@ -69,6 +78,7 @@
 
         <EditText
             android:id="@+id/editUserPasswordConfirm"
+            android:visibility="gone"
             android:hint="Confirm Password"
             android:textColorHint="@color/white"
             android:textColor="@color/white"
@@ -78,6 +88,7 @@
 
         <EditText
             android:id="@+id/editUserFirstName"
+            android:visibility="gone"
             android:hint="First Name"
             android:textColorHint="@color/white"
             android:textColor="@color/white"
@@ -87,6 +98,7 @@
 
         <EditText
             android:id="@+id/editUserLastName"
+            android:visibility="gone"
             android:hint="Last Name"
             android:textColorHint="@color/white"
             android:textColor="@color/white"
@@ -138,6 +150,7 @@
 
         <LinearLayout
             android:id="@+id/llLoginFooter"
+            android:visibility="gone"
             android:orientation="horizontal"
             android:layout_marginTop="25dp"
             android:layout_width="match_parent"

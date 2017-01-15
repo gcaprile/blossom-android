@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -196,6 +197,16 @@ public class LoginFragmentActivity extends FragmentActivity {
                 }
             }
         });
+
+        ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MenuFragmentActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+            }
+        });
     }
 
     @Override
@@ -308,7 +319,7 @@ public class LoginFragmentActivity extends FragmentActivity {
 
     private void registerNewUser() {
         try {
-            BuiltUser userObject = Built.application(getApplicationContext(), API.API_KEY).user();
+            final BuiltUser userObject = Built.application(getApplicationContext(), API.API_KEY).user();
 
             final LinearLayout loader = (LinearLayout) findViewById(R.id.llHeaderProgress);
             loader.setVisibility(View.VISIBLE);
@@ -334,6 +345,7 @@ public class LoginFragmentActivity extends FragmentActivity {
                 public void onCompletion(BuiltConstant.BuiltResponseType builtResponseType, BuiltError error) {
                     if(error == null){
                         System.out.println("USER REGISTERED!");
+                        Log.i(TAG, userObject.getUserUid());
                     }else{
                         System.out.println(error.getErrorMessage());
                         Toast.makeText(
