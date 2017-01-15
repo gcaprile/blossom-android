@@ -36,41 +36,7 @@ public class SignUp2FragmentActivity extends FragmentActivity {
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    BuiltUser userObject = Built.application(getApplicationContext(), API.API_KEY).user();
 
-                    EditText editUserFirstName = (EditText) findViewById(R.id.editUserFirstName);
-                    EditText editUserLastName = (EditText) findViewById(R.id.editUserLastName);
-
-                    String firstName = editUserFirstName.getText().toString();
-                    String lastName = editUserLastName.getText().toString();
-
-                    userObject.setEmail(email);
-                    userObject.setUserName(email);
-                    userObject.setPassword(password);
-                    userObject.setConfirmPassword(password);
-                    userObject.setFirstName(firstName);
-                    userObject.setLastName(lastName);
-
-                    userObject.register(new BuiltResultCallBack() {
-
-                        @Override
-                        public void onCompletion(BuiltConstant.BuiltResponseType builtResponseType, BuiltError error) {
-                            if(error == null){
-                                System.out.println("USER REGISTERED!");
-                            }else{
-                                System.out.println(error.getErrorMessage());
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        error.getErrorMessage(),
-                                        Toast.LENGTH_SHORT
-                                ).show();
-                            }
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         });
     }

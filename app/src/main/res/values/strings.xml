@@ -22,5 +22,8 @@
     <string name="login">Login</string>
     <string name="submit">Submit</string>
     <string name="forgot_password"><u>Forgot Password</u>.</string>
-    <string name="create_account"><u>Create an Account</u>.</string>
+    <string name="create_an_account"><u>Create an Account</u>.</string>
+    <string name="create_account_title">CREATE AN ACCOUNT</string>
+    <string name="login_title">LOGIN</string>
+    <string name="create_account">Create Account</string>
 </resources>
