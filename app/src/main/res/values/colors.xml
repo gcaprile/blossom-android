@@ -6,7 +6,7 @@
     <color name="white">#FFF</color>
     <color name="whiteTransparent">#7dffffff</color>
     <color name="introBorder">#8CAAFC</color>
-    <color name="mainBkg">#9CBBFD</color>
+    <color name="mainBkg">#4A90E2</color>
     <color name="button">#3B73B4</color>
     <color name="buttonDark">#2167b9</color>
     <color name="buttonTransparent">#50000000</color>

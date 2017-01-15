@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.findigital.blossom.models.Career;
+import com.findigital.blossom.models.MyCareer;
 import com.findigital.blossom.models.Setting;
 import com.findigital.blossom.models.SurveyCareerResult;
 import com.findigital.blossom.models.SurveyQuestion;
@@ -22,8 +23,19 @@ import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 12;
+    public static final int DATABASE_VERSION = 13;
     public static final String DATABASE_NAME = "Blossom.db";
+
+    /**
+     * MY CAREER TABLE
+     */
+    private static final String SQL_CREATE_MY_CAREER =
+            "CREATE TABLE " + MyCareer.MyCareerEntry.TABLE_NAME + " (" +
+                    MyCareer.MyCareerEntry._ID + " STRING PRIMARY KEY," +
+                    MyCareer.MyCareerEntry.COLUMN_NAME + " STRING)";
+
+    private static final String SQL_DELETE_MY_CAREER =
+            "DROP TABLE IF EXISTS " + MyCareer.MyCareerEntry.TABLE_NAME;
 
     /**
      * CAREERS TABLE
@@ -109,6 +121,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_SURVEY_RESULTS);
         db.execSQL(SQL_CREATE_SURVEY_CAREER_RESULTS);
         db.execSQL(SQL_CREATE_CAREERS);
+        db.execSQL(SQL_CREATE_MY_CAREER);
 
         // Initialize settings
         Setting setting = new Setting();
@@ -131,6 +144,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_SURVEY_RESULTS);
         db.execSQL(SQL_DELETE_SURVEY_CAREER_RESULTS);
         db.execSQL(SQL_DELETE_CAREERS);
+        db.execSQL(SQL_DELETE_MY_CAREER);
         onCreate(db);
     }
 
@@ -210,6 +224,51 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String sql = "DELETE FROM " + Career.CareerEntry.TABLE_NAME;
+
+        db.execSQL(sql);
+        db.close();
+    }
+
+    /*********************************************/
+    /** MY CAREER CRUD **/
+    /*********************************************/
+
+    public void addMyCareer(MyCareer myCareer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(MyCareer.MyCareerEntry._ID, myCareer.getId());
+        values.put(MyCareer.MyCareerEntry.COLUMN_NAME, myCareer.getName());
+
+        db.insert(MyCareer.MyCareerEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public MyCareer getMyCareer() {
+
+        String selectQuery =
+                "SELECT * FROM " +
+                        MyCareer.MyCareerEntry.TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        MyCareer myCareer = new MyCareer(
+                cursor.getString(0),
+                cursor.getString(1));
+
+        cursor.close();
+
+        return myCareer;
+    }
+
+    public void deleteMyCareer() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String sql = "DELETE FROM " + MyCareer.MyCareerEntry.TABLE_NAME;
 
         db.execSQL(sql);
         db.close();

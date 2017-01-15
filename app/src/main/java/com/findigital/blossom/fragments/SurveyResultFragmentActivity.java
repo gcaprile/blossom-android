@@ -1,5 +1,6 @@
 package com.findigital.blossom.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -21,13 +22,14 @@ import java.util.ArrayList;
 public class SurveyResultFragmentActivity extends FragmentActivity {
 
     ListView lvCareers;
+    DbHelper dbHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_survey_result);
 
-        DbHelper dbHelper = new DbHelper(getApplicationContext());
+        dbHelper = new DbHelper(getApplicationContext());
 
         final LinearLayout llHeaderProgress = (LinearLayout) findViewById(R.id.llHeaderProgress);
 
@@ -80,7 +82,8 @@ public class SurveyResultFragmentActivity extends FragmentActivity {
             careers.add(dbHelper.getCareer("blt97cfafea7c57e1f4")); // Teacher
         }
 
-        SurveyResultListAdapter listAdapter = new SurveyResultListAdapter(getApplicationContext(), careers);
+        SurveyResultListAdapter listAdapter =
+                new SurveyResultListAdapter(getApplicationContext(), SurveyResultFragmentActivity.this, careers);
         lvCareers.setAdapter(listAdapter);
 
         llHeaderProgress.setVisibility(View.GONE);

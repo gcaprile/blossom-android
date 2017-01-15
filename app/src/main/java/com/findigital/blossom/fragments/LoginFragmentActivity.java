@@ -36,8 +36,6 @@ import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
-import org.w3c.dom.Text;
-
 import static android.view.View.GONE;
 
 /**
@@ -207,6 +205,14 @@ public class LoginFragmentActivity extends FragmentActivity {
                 overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
             }
         });
+
+        Intent intent = getIntent();
+        Integer uiStyle = intent.getIntExtra("uiStyle", 1);
+
+        if (uiStyle == 2) {
+            // Create account
+            showSignUpUI();
+        }
     }
 
     @Override

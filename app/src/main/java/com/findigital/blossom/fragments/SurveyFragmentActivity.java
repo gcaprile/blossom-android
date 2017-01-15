@@ -1,29 +1,15 @@
 package com.findigital.blossom.fragments;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.findigital.blossom.R;
 import com.findigital.blossom.adapters.QuestionsPageAdapter;
 import com.findigital.blossom.helpers.DbHelper;
-import com.findigital.blossom.models.SurveyQuestion;
-import com.raweng.built.Built;
-import com.raweng.built.BuiltApplication;
-import com.raweng.built.BuiltError;
-import com.raweng.built.BuiltObject;
-import com.raweng.built.BuiltQuery;
-import com.raweng.built.BuiltQueryResult;
-import com.raweng.built.QueryResultsCallBack;
-import com.raweng.built.utilities.BuiltConstant;
-
-import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
 

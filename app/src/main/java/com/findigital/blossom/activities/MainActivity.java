@@ -101,6 +101,8 @@ public class MainActivity extends Activity {
         btnNavFindCareer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dbHelper.deleteAllSurveyResults();
+                dbHelper.deleteAllSurveyCareerResults();
                 startActivity(survey);
             }
         });

@@ -29,6 +29,20 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/btnAddCareer"
+        android:background="@drawable/button"
+        android:drawableLeft="@drawable/ic_favorite_small"
+        android:paddingLeft="20dp"
+        android:paddingRight="50dp"
+        android:layout_gravity="bottom"
+        android:textColor="@color/white"
+        android:text="@string/add_to_my_careers"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <Button
         android:id="@+id/btnCareerMoreInfo"
         android:background="@drawable/button"
         android:layout_gravity="bottom"

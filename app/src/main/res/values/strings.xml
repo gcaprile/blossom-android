@@ -26,4 +26,8 @@
     <string name="create_account_title">CREATE AN ACCOUNT</string>
     <string name="login_title">LOGIN</string>
     <string name="create_account">Create Account</string>
+    <string name="career_search">Career Search</string>
+    <string name="financial_literacy">Financial Literacy</string>
+    <string name="add_to_my_careers">Add To My Careers</string>
+    <string name="my_careers">My Careers</string>
 </resources>
