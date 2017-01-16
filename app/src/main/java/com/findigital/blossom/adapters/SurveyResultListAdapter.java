@@ -12,15 +12,24 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.findigital.blossom.R;
 import com.findigital.blossom.fragments.CareerDetailFragment;
 import com.findigital.blossom.fragments.LoginFragmentActivity;
 import com.findigital.blossom.fragments.SurveyFragmentActivity;
+import com.findigital.blossom.helpers.API;
 import com.findigital.blossom.helpers.DbHelper;
 import com.findigital.blossom.models.Career;
 import com.findigital.blossom.models.MyCareer;
 import com.findigital.blossom.models.SurveyResponse;
+import com.findigital.blossom.models.User;
+import com.raweng.built.Built;
+import com.raweng.built.BuiltApplication;
+import com.raweng.built.BuiltError;
+import com.raweng.built.BuiltResultCallBack;
+import com.raweng.built.BuiltUser;
+import com.raweng.built.utilities.BuiltConstant;
 
 import java.util.ArrayList;
 
@@ -117,11 +126,22 @@ public class SurveyResultListAdapter extends ArrayAdapter {
                         MyCareer myCareer = new MyCareer(careerId, career);
                         dbHelper.deleteMyCareer();
                         dbHelper.addMyCareer(myCareer);
-                        Intent intent = new Intent(context, LoginFragmentActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("uiStyle", 2);
-                        context.startActivity(intent);
 
+                        User user = dbHelper.getUser();
+
+                        System.out.println(dbHelper.getUser());
+
+                        // Verify if user is logged in
+                        if (user.getId() != null) {
+                            // User is logged in, just update career path
+                            updateUserCareerPath(user.getId(), context);
+                        } else {
+                            // User not logged in, proceed to login/signup view
+                            Intent intent = new Intent(context, LoginFragmentActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("uiStyle", 2);
+                            context.startActivity(intent);
+                        }
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -130,5 +150,39 @@ public class SurveyResultListAdapter extends ArrayAdapter {
                         // nothing
                     }
                 }).show();
+    }
+
+    private void updateUserCareerPath(String userUid, final Context context) {
+        try {
+            BuiltApplication builtApplication = Built.application(context, API.API_KEY);
+            final BuiltUser userObject  =  builtApplication.user(userUid);
+
+            MyCareer myCareer = dbHelper.getMyCareer();
+
+            if (myCareer != null) {
+                userObject.set("selected_career", myCareer.getId());
+            }
+
+            userObject.updateUserInfo(new BuiltResultCallBack() {
+
+                @Override
+                public void onCompletion(BuiltConstant.BuiltResponseType builtResponseType, BuiltError error) {
+                    if (error == null) {
+                        // user has logged in successfully
+                        System.out.println("USER INFO UPDATED");
+                    } else {
+                        System.out.println(error);
+                        Toast.makeText(context,
+                                error.getErrorMessage(),
+                                Toast.LENGTH_SHORT).show();
+                        // login failed
+                        // refer to the 'error' object for more details
+                    }
+                }
+
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

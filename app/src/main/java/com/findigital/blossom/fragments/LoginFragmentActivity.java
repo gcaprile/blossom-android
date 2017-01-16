@@ -25,6 +25,7 @@ import com.findigital.blossom.R;
 import com.findigital.blossom.helpers.API;
 import com.findigital.blossom.helpers.DbHelper;
 import com.findigital.blossom.models.MyCareer;
+import com.findigital.blossom.models.User;
 import com.raweng.built.Built;
 import com.raweng.built.BuiltApplication;
 import com.raweng.built.BuiltError;
@@ -260,7 +261,6 @@ public class LoginFragmentActivity extends FragmentActivity {
                 public void onCompletion(BuiltConstant.BuiltResponseType builtResponseType, BuiltError error) {
                     if(error == null){
                         System.out.println("LOGGED WITH FACEBOOK");
-                        System.out.println(userObject.getUid());
                         updateUserCareerPath(userObject.getUserUid());
                     }else{
                         Log.e(TAG, error.getErrorMessage());
@@ -386,7 +386,7 @@ public class LoginFragmentActivity extends FragmentActivity {
     private void updateUserCareerPath(String userUid) {
         try {
             BuiltApplication builtApplication = Built.application(getApplicationContext(), API.API_KEY);
-            BuiltUser userObject  =  builtApplication.user(userUid);
+            final BuiltUser userObject  =  builtApplication.user(userUid);
 
             if (myCareer != null) {
                 userObject.set("selected_career", myCareer.getId());
@@ -399,6 +399,7 @@ public class LoginFragmentActivity extends FragmentActivity {
                     if (error == null) {
                         // user has logged in successfully
                         System.out.println("USER INFO UPDATED");
+                        updateAppUser(userObject);
                     } else {
                         System.out.println(error);
                         Toast.makeText(getApplicationContext(),
@@ -496,5 +497,19 @@ public class LoginFragmentActivity extends FragmentActivity {
                     }
                 })
                 .show();
+    }
+
+    private void updateAppUser(BuiltUser userObject) {
+        User user = new User(
+                userObject.getUid(),
+                userObject.getUserName(),
+                userObject.getEmailId(),
+                userObject.getFirstName(),
+                userObject.getLastName(),
+                userObject.get("selected_career").toString()
+        );
+
+        dbHelper.deleteUsers();
+        dbHelper.addUser(user);
     }
 }

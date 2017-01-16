@@ -13,6 +13,7 @@ import com.findigital.blossom.models.SurveyCareerResult;
 import com.findigital.blossom.models.SurveyQuestion;
 import com.findigital.blossom.models.SurveyResponse;
 import com.findigital.blossom.models.SurveyResult;
+import com.findigital.blossom.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,23 @@ import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 13;
+    public static final int DATABASE_VERSION = 16;
     public static final String DATABASE_NAME = "Blossom.db";
+
+    /**
+     * USERS TABLE
+     */
+    private static final String SQL_CREATE_USERS =
+            "CREATE TABLE " + User.UserEntry.TABLE_NAME + " (" +
+                    User.UserEntry._ID + " STRING PRIMARY KEY," +
+                    User.UserEntry.COLUMN_USERNAME + " STRING," +
+                    User.UserEntry.COLUMN_EMAIL + " STRING," +
+                    User.UserEntry.COLUMN_FIRST_NAME + " STRING," +
+                    User.UserEntry.COLUMN_LAST_NAME + " STRING," +
+                    User.UserEntry.COLUMN_CAREER_PATH_ID + " STRING)";
+
+    private static final String SQL_DELETE_USERS =
+            "DROP TABLE IF EXISTS " + User.UserEntry.TABLE_NAME;
 
     /**
      * MY CAREER TABLE
@@ -122,6 +138,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_SURVEY_CAREER_RESULTS);
         db.execSQL(SQL_CREATE_CAREERS);
         db.execSQL(SQL_CREATE_MY_CAREER);
+        db.execSQL(SQL_CREATE_USERS);
 
         // Initialize settings
         Setting setting = new Setting();
@@ -145,6 +162,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_SURVEY_CAREER_RESULTS);
         db.execSQL(SQL_DELETE_CAREERS);
         db.execSQL(SQL_DELETE_MY_CAREER);
+        db.execSQL(SQL_DELETE_USERS);
         onCreate(db);
     }
 
@@ -545,6 +563,65 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String sql = "DELETE FROM " + SurveyCareerResult.SurveyCareerResultEntry.TABLE_NAME;
+
+        db.execSQL(sql);
+        db.close();
+    }
+
+    /*********************************************/
+    /** USERS CRUD **/
+    /*********************************************/
+
+    // Add new user
+    public void addUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(User.UserEntry._ID, user.getId());
+        values.put(User.UserEntry.COLUMN_FIRST_NAME, user.getFirstName());
+        values.put(User.UserEntry.COLUMN_LAST_NAME, user.getLastName());
+        values.put(User.UserEntry.COLUMN_USERNAME, user.getUsername());
+        values.put(User.UserEntry.COLUMN_EMAIL, user.getEmail());
+        values.put(User.UserEntry.COLUMN_CAREER_PATH_ID, user.getCareerPathId());
+
+        db.insert(User.UserEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public User getUser() {
+
+        String selectQuery =
+                "SELECT * FROM " +
+                        User.UserEntry.TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        User user = new User();
+
+        if (cursor.getCount() > 0) {
+            user = new User(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5));
+        }
+
+        cursor.close();
+
+        return user;
+    }
+
+    public void deleteUsers() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String sql = "DELETE FROM " + User.UserEntry.TABLE_NAME;
 
         db.execSQL(sql);
         db.close();
