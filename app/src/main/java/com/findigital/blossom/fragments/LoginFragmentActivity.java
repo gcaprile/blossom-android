@@ -23,6 +23,8 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.findigital.blossom.R;
 import com.findigital.blossom.helpers.API;
+import com.findigital.blossom.helpers.DbHelper;
+import com.findigital.blossom.models.MyCareer;
 import com.raweng.built.Built;
 import com.raweng.built.BuiltApplication;
 import com.raweng.built.BuiltError;
@@ -69,6 +71,10 @@ public class LoginFragmentActivity extends FragmentActivity {
     EditText editUserLastName;
 
     LinearLayout llLoginFooter;
+    LinearLayout loader;
+
+    DbHelper dbHelper;
+    MyCareer myCareer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +84,14 @@ public class LoginFragmentActivity extends FragmentActivity {
 
         setContentView(R.layout.fragment_login);
 
+        dbHelper = new DbHelper(getApplicationContext());
+
+        myCareer = dbHelper.getMyCareer();
+        System.out.println(myCareer.getId());
+
         callbackManager = CallbackManager.Factory.create();
+
+        loader = (LinearLayout) findViewById(R.id.llHeaderProgress);
 
         txtNavSignUp = (TextView) findViewById(R.id.txtNavSignUp);
         txtNavLogin = (TextView) findViewById(R.id.txtNavLogin);
@@ -240,13 +253,15 @@ public class LoginFragmentActivity extends FragmentActivity {
     private void loginUsingFacebook(String fbAccessToken) {
         try {
             BuiltApplication builtApplication  = Built.application(getApplicationContext(), API.API_KEY);
-            BuiltUser userObject  =  builtApplication.user();
+            final BuiltUser userObject = builtApplication.user();
 
             userObject.loginWithFacebookAccessToken(fbAccessToken, new BuiltResultCallBack() {
                 @Override
                 public void onCompletion(BuiltConstant.BuiltResponseType builtResponseType, BuiltError error) {
                     if(error == null){
                         System.out.println("LOGGED WITH FACEBOOK");
+                        System.out.println(userObject.getUid());
+                        updateUserCareerPath(userObject.getUserUid());
                     }else{
                         Log.e(TAG, error.getErrorMessage());
                         Toast.makeText(getApplicationContext(),
@@ -266,13 +281,14 @@ public class LoginFragmentActivity extends FragmentActivity {
     private void loginUsingTwitter(String token, String tokenSecret) {
         try {
             BuiltApplication builtApplication  = Built.application(getApplicationContext(), API.API_KEY);
-            BuiltUser userObject  =  builtApplication.user();
+            final BuiltUser userObject  =  builtApplication.user();
 
             userObject.loginWithTwitterAccessToken(token, tokenSecret, API.TWITTER_KEY, API.TWITTER_SECRET, new BuiltResultCallBack() {
                 @Override
                 public void onCompletion(BuiltConstant.BuiltResponseType builtResponseType, BuiltError error) {
                     if(error == null){
                         System.out.println("LOGGED WITH TWITTER");
+                        updateUserCareerPath(userObject.getUserUid());
                     }else{
                         Log.e(TAG, error.getErrorMessage());
                         Toast.makeText(getApplicationContext(),
@@ -292,13 +308,15 @@ public class LoginFragmentActivity extends FragmentActivity {
     private void loginWithEmail() {
         try {
             BuiltApplication builtApplication = Built.application(getApplicationContext(), API.API_KEY);
-            BuiltUser userObject  =  builtApplication.user();
+            final BuiltUser userObject  =  builtApplication.user();
 
             EditText editLoginEmail = (EditText) findViewById(R.id.editLoginEmail);
             EditText editLoginPassword = (EditText) findViewById(R.id.editLoginPassword);
 
             String userEmail = editLoginEmail.getText().toString();
             String userPwd = editLoginPassword.getText().toString();
+
+            showLoader();
 
             userObject.login(userEmail, userPwd, new BuiltResultCallBack() {
 
@@ -307,6 +325,7 @@ public class LoginFragmentActivity extends FragmentActivity {
                     if (error == null) {
                         // user has logged in successfully
                         System.out.println("LOGGED IN");
+                        updateUserCareerPath(userObject.getUserUid());
                     } else {
                         System.out.println(error);
                         Toast.makeText(getApplicationContext(),
@@ -315,6 +334,7 @@ public class LoginFragmentActivity extends FragmentActivity {
                         // login failed
                         // refer to the 'error' object for more details
                     }
+                    hideLoader();
                 }
 
             });
@@ -326,11 +346,6 @@ public class LoginFragmentActivity extends FragmentActivity {
     private void registerNewUser() {
         try {
             final BuiltUser userObject = Built.application(getApplicationContext(), API.API_KEY).user();
-
-            final LinearLayout loader = (LinearLayout) findViewById(R.id.llHeaderProgress);
-            loader.setVisibility(View.VISIBLE);
-
-            btnLoginSubmit.setEnabled(false);
 
             EditText editUserFirstName = (EditText) findViewById(R.id.editUserFirstName);
             EditText editUserLastName = (EditText) findViewById(R.id.editUserLastName);
@@ -352,6 +367,7 @@ public class LoginFragmentActivity extends FragmentActivity {
                     if(error == null){
                         System.out.println("USER REGISTERED!");
                         Log.i(TAG, userObject.getUserUid());
+                        updateUserCareerPath(userObject.getUserUid());
                     }else{
                         System.out.println(error.getErrorMessage());
                         Toast.makeText(
@@ -360,10 +376,39 @@ public class LoginFragmentActivity extends FragmentActivity {
                                 Toast.LENGTH_SHORT
                         ).show();
                     }
-
-                    loader.setVisibility(GONE);
-                    btnLoginSubmit.setEnabled(true);
                 }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateUserCareerPath(String userUid) {
+        try {
+            BuiltApplication builtApplication = Built.application(getApplicationContext(), API.API_KEY);
+            BuiltUser userObject  =  builtApplication.user(userUid);
+
+            if (myCareer != null) {
+                userObject.set("selected_career", myCareer.getId());
+            }
+
+            userObject.updateUserInfo(new BuiltResultCallBack() {
+
+                @Override
+                public void onCompletion(BuiltConstant.BuiltResponseType builtResponseType, BuiltError error) {
+                    if (error == null) {
+                        // user has logged in successfully
+                        System.out.println("USER INFO UPDATED");
+                    } else {
+                        System.out.println(error);
+                        Toast.makeText(getApplicationContext(),
+                                error.getErrorMessage(),
+                                Toast.LENGTH_SHORT).show();
+                        // login failed
+                        // refer to the 'error' object for more details
+                    }
+                }
+
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -429,6 +474,16 @@ public class LoginFragmentActivity extends FragmentActivity {
         btnLoginSubmit.setText(getString(R.string.submit));
 
         step = 0;
+    }
+
+    private void showLoader() {
+        loader.setVisibility(View.VISIBLE);
+        btnLoginSubmit.setEnabled(false);
+    }
+
+    private void hideLoader() {
+        loader.setVisibility(GONE);
+        btnLoginSubmit.setEnabled(true);
     }
 
     private void showDialogMsg(String pContent) {

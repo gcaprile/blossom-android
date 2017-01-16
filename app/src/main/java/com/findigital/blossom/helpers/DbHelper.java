@@ -256,9 +256,13 @@ public class DbHelper extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        MyCareer myCareer = new MyCareer(
-                cursor.getString(0),
-                cursor.getString(1));
+        MyCareer myCareer = new MyCareer();
+
+        if (cursor.getCount() > 0) {
+            myCareer = new MyCareer(
+                    cursor.getString(0),
+                    cursor.getString(1));
+        }
 
         cursor.close();
 
