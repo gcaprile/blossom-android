@@ -21,4 +21,5 @@
     <color name="twitterDark">#007cab</color>
     <color name="menuBkg">#9013FE</color>
     <color name="menuItemDivider">#6e00cf</color>
+    <color name="lineTransparent">#2c000000</color>
 </resources>

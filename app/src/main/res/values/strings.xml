@@ -30,4 +30,13 @@
     <string name="financial_literacy">Financial Literacy</string>
     <string name="add_to_my_careers">Add To My Careers</string>
     <string name="my_careers">My Careers</string>
+    <string name="my_career_title">MY CAREER</string>
+    <string name="your_career_path_is">Your career path is</string>
+    <string name="my_progress">My Progress</string>
+    <string name="view_resources">View Resources</string>
+    <string name="menu">Menu</string>
+    <string name="my_career">My Career</string>
+    <string name="resources">Resources</string>
+    <string name="restart_your_journey">Restart your Journey</string>
+    <string name="logout">Logout</string>
 </resources>

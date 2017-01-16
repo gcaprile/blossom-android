@@ -151,10 +151,10 @@ public class LoginFragmentActivity extends FragmentActivity {
             }
         });
 
-        if (AccessToken.getCurrentAccessToken() != null) {
+        /*if (AccessToken.getCurrentAccessToken() != null) {
             // Logged In with Facebook
             // Todo: Continue to My Career view
-        }
+        }*/
 
         // Callback registration
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -400,6 +400,9 @@ public class LoginFragmentActivity extends FragmentActivity {
                         // user has logged in successfully
                         System.out.println("USER INFO UPDATED");
                         updateAppUser(userObject);
+                        // Navigate to My Career view
+                        startActivity(new Intent(getApplicationContext(), MyCareerFragmentActivity.class));
+                        finish();
                     } else {
                         System.out.println(error);
                         Toast.makeText(getApplicationContext(),

@@ -15,7 +15,6 @@ public class MyCareer {
 
     public static class MyCareerEntry implements BaseColumns {
         public static final String TABLE_NAME = "my_career";
-        public static final String COLUMN_ID = "id";
         public static final String COLUMN_NAME = "name";
     }
 

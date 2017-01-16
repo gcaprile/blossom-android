@@ -86,6 +86,8 @@
             android:name=".fragments.SchollyFragmentActivity" />
         <activity
             android:name=".fragments.LoginFragmentActivity" />
+        <activity
+            android:name=".fragments.MyCareerFragmentActivity" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="754fe49fab28b562c04f2b1a6309549662655891" />
