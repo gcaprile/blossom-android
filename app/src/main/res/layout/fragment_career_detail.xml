@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llCareerDetail"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -28,6 +28,7 @@
         android:layout_height="180dp" />
 
     <ScrollView
+        android:layout_below="@id/imgCareerDetailImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -113,4 +114,20 @@
 
     </ScrollView>
 
-</LinearLayout>
+    <FrameLayout
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="20dp"
+        android:background="@drawable/gradient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgAddCareer"
+            android:src="@drawable/ic_favorite"
+            android:layout_gravity="center"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+    </FrameLayout>
+
+</RelativeLayout>

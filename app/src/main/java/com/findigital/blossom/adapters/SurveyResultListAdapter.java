@@ -122,13 +122,13 @@ public class SurveyResultListAdapter extends ArrayAdapter {
         return position;
     }
 
-    private void showConfirmation(final String careerId, final String career, final String careerColor, final Context context) {
+    private void showConfirmation(final String careerId, final String careerName, final String careerColor, final Context context) {
         new AlertDialog.Builder(parentActivity)
                 .setTitle(context.getString(R.string.my_careers))
-                .setMessage("You've just added " + career + " as a desired career. Create an account to track your progress.")
+                .setMessage("You've just added " + careerName + " as a desired career. Create an account to track your progress.")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        MyCareer myCareer = new MyCareer(careerId, career, careerColor);
+                        MyCareer myCareer = new MyCareer(careerId, careerName, careerColor);
                         dbHelper.deleteMyCareer();
                         dbHelper.addMyCareer(myCareer);
 

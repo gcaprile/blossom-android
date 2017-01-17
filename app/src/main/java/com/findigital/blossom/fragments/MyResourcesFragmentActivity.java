@@ -59,7 +59,7 @@ public class MyResourcesFragmentActivity extends FragmentActivity {
         careerId = myCareer.getId();
 
         LinearLayout llMyResourcesLayout = (LinearLayout) findViewById(R.id.llMyResourcesLayout);
-        llMyResourcesLayout.setBackgroundColor(Color.parseColor("#" + myCareer.getColor()));
+        llMyResourcesLayout.setBackgroundColor(Color.parseColor(myCareer.getColor()));
 
         ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
         btnMenu.setOnClickListener(new View.OnClickListener() {

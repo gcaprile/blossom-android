@@ -102,7 +102,7 @@ public class MyProgressListAdapter extends ArrayAdapter {
 
         holder.txtTaskTitle.setText(task.get("task_name").toString());
 
-        if (!task.get("description").toString().isEmpty()) {
+        if (task.get("description") != null) {
             holder.txtTaskDescription.setVisibility(View.VISIBLE);
             holder.txtTaskDescription.setText(task.get("description").toString());
         } else if (!task.get("task_bullets").toString().isEmpty()) {
@@ -199,7 +199,9 @@ public class MyProgressListAdapter extends ArrayAdapter {
 
         holder.editTaskResponse.setText(taskResponse);
 
-        holder.txtTaskQuestion.setText(task.get("user_task_question").toString());
+        if (task.get("user_task_question") != null) {
+            holder.txtTaskQuestion.setText(task.get("user_task_question").toString());
+        }
 
         return convertView;
     }
