@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -150,11 +149,6 @@ public class LoginFragmentActivity extends FragmentActivity {
 
             }
         });
-
-        /*if (AccessToken.getCurrentAccessToken() != null) {
-            // Logged In with Facebook
-            // Todo: Continue to My Career view
-        }*/
 
         // Callback registration
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -360,14 +354,19 @@ public class LoginFragmentActivity extends FragmentActivity {
             userObject.setFirstName(firstName);
             userObject.setLastName(lastName);
 
+            if (myCareer != null) {
+                userObject.set("selected_career", myCareer.getId());
+            }
+
             userObject.register(new BuiltResultCallBack() {
 
                 @Override
                 public void onCompletion(BuiltConstant.BuiltResponseType builtResponseType, BuiltError error) {
                     if(error == null){
-                        System.out.println("USER REGISTERED!");
-                        Log.i(TAG, userObject.getUserUid());
-                        updateUserCareerPath(userObject.getUserUid());
+                        updateAppUser(userObject);
+                        // Navigate to My Career view
+                        startActivity(new Intent(getApplicationContext(), MyCareerFragmentActivity.class));
+                        finish();
                     }else{
                         System.out.println(error.getErrorMessage());
                         Toast.makeText(
@@ -404,7 +403,7 @@ public class LoginFragmentActivity extends FragmentActivity {
                         startActivity(new Intent(getApplicationContext(), MyCareerFragmentActivity.class));
                         finish();
                     } else {
-                        System.out.println(error);
+                        System.out.println(error.getErrorMessage());
                         Toast.makeText(getApplicationContext(),
                                 error.getErrorMessage(),
                                 Toast.LENGTH_SHORT).show();

@@ -32,7 +32,6 @@
             android:layout_height="wrap_content">
 
             <ImageView android:id="@+id/imgMyCareerCover"
-                android:src="@drawable/start"
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="200dp" />
@@ -74,17 +73,15 @@
 
                 <TextView
                     android:id="@+id/txtMyCareerName"
-                    android:text="Engineer"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/txtMyCareerIntro"
-                    android:text="Engineering is the branch of science and technology concerned with designing, building, and using engines, machines, and structures. Engineers design bridges and buildings and develop processes to clean up toxic spills. The five largest areas of engineering are chemical, civil, electrical, industrial, and mechanical. Within these areas of engineering, there are more specialized engineering fields, including aerospace, nuclear, biomedical, oceanic, computer, and environmental."
                     android:ellipsize="end"
                     android:maxLines="3"
                     android:textColor="@color/white"

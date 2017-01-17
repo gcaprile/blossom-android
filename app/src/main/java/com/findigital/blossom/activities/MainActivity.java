@@ -47,6 +47,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         try {
@@ -146,6 +147,7 @@ public class MainActivity extends Activity {
                             career.setId(item.get("uid").toString());
                             career.setCareerName(item.get("career_name").toString());
                             career.setCareerIntro(item.get("career_intro").toString());
+                            career.setCareerColor(item.get("career_color").toString());
 
                             dbHelper.addCareer(career);
                         }

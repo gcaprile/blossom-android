@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.findigital.blossom.R;
 import com.findigital.blossom.adapters.CareersListAdapter;
 import com.findigital.blossom.adapters.CareersPageAdapter;
+import com.findigital.blossom.helpers.API;
 import com.raweng.built.Built;
 import com.raweng.built.BuiltApplication;
 import com.raweng.built.BuiltError;
@@ -138,7 +139,7 @@ public class CareersFragmentActivity extends FragmentActivity {
         try {
             final LinearLayout llHeaderProgress = (LinearLayout) findViewById(R.id.llHeaderProgress);
             llHeaderProgress.setVisibility(View.VISIBLE);
-            BuiltApplication builtApplication  = Built.application(getApplicationContext(),"blta5ec08d170ee25c5");
+            BuiltApplication builtApplication  = Built.application(getApplicationContext(), API.API_KEY);
             BuiltQuery queryCareers = builtApplication.classWithUid("career_content").query();
 
             queryCareers.ascending("career_name");

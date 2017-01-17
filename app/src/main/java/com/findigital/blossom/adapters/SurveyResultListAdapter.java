@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.findigital.blossom.R;
 import com.findigital.blossom.fragments.CareerDetailFragment;
 import com.findigital.blossom.fragments.LoginFragmentActivity;
+import com.findigital.blossom.fragments.MyCareerFragmentActivity;
 import com.findigital.blossom.fragments.SurveyFragmentActivity;
 import com.findigital.blossom.helpers.API;
 import com.findigital.blossom.helpers.DbHelper;
@@ -95,7 +96,11 @@ public class SurveyResultListAdapter extends ArrayAdapter {
         holder.btnAddCareer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showConfirmation(career.getId(), career.getCareerName(), context);
+                showConfirmation(
+                        career.getId(),
+                        career.getCareerName(),
+                        career.getCareerColor(),
+                        context);
             }
         });
 
@@ -117,13 +122,13 @@ public class SurveyResultListAdapter extends ArrayAdapter {
         return position;
     }
 
-    private void showConfirmation(final String careerId, final String career, final Context context) {
+    private void showConfirmation(final String careerId, final String career, final String careerColor, final Context context) {
         new AlertDialog.Builder(parentActivity)
                 .setTitle(context.getString(R.string.my_careers))
                 .setMessage("You've just added " + career + " as a desired career. Create an account to track your progress.")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        MyCareer myCareer = new MyCareer(careerId, career);
+                        MyCareer myCareer = new MyCareer(careerId, career, careerColor);
                         dbHelper.deleteMyCareer();
                         dbHelper.addMyCareer(myCareer);
 
@@ -138,7 +143,7 @@ public class SurveyResultListAdapter extends ArrayAdapter {
                         } else {
                             // User not logged in, proceed to login/signup view
                             Intent intent = new Intent(context, LoginFragmentActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("uiStyle", 2);
                             context.startActivity(intent);
                         }
@@ -169,7 +174,9 @@ public class SurveyResultListAdapter extends ArrayAdapter {
                 public void onCompletion(BuiltConstant.BuiltResponseType builtResponseType, BuiltError error) {
                     if (error == null) {
                         // user has logged in successfully
-                        System.out.println("USER INFO UPDATED");
+                        Intent intent = new Intent(context, MyCareerFragmentActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
                     } else {
                         System.out.println(error);
                         Toast.makeText(context,

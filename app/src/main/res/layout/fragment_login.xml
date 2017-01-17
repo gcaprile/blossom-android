@@ -24,7 +24,7 @@
         <TextView
             android:id="@+id/txtLoginTitle"
             android:text="LOGIN"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:textColor="@color/white"
             android:textSize="40sp"
@@ -46,12 +46,13 @@
             android:id="@+id/btnTwitterLogin"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="50dp" />
 
         <TextView
             android:text="OR"
             android:gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -61,8 +62,6 @@
         <EditText
             android:id="@+id/editLoginEmail"
             android:hint="Email"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
             android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -70,8 +69,6 @@
         <EditText
             android:id="@+id/editLoginPassword"
             android:hint="Password"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -80,8 +77,6 @@
             android:id="@+id/editUserPasswordConfirm"
             android:visibility="gone"
             android:hint="Confirm Password"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -90,8 +85,6 @@
             android:id="@+id/editUserFirstName"
             android:visibility="gone"
             android:hint="First Name"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
             android:inputType="textCapSentences"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -100,8 +93,6 @@
             android:id="@+id/editUserLastName"
             android:visibility="gone"
             android:hint="Last Name"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
             android:inputType="textCapSentences"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

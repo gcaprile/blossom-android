@@ -24,7 +24,7 @@ import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 16;
+    public static final int DATABASE_VERSION = 17;
     public static final String DATABASE_NAME = "Blossom.db";
 
     /**
@@ -48,7 +48,8 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_MY_CAREER =
             "CREATE TABLE " + MyCareer.MyCareerEntry.TABLE_NAME + " (" +
                     MyCareer.MyCareerEntry._ID + " STRING PRIMARY KEY," +
-                    MyCareer.MyCareerEntry.COLUMN_NAME + " STRING)";
+                    MyCareer.MyCareerEntry.COLUMN_NAME + " STRING," +
+                    MyCareer.MyCareerEntry.COLUMN_COLOR + " STRING)";
 
     private static final String SQL_DELETE_MY_CAREER =
             "DROP TABLE IF EXISTS " + MyCareer.MyCareerEntry.TABLE_NAME;
@@ -60,7 +61,8 @@ public class DbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + Career.CareerEntry.TABLE_NAME + " (" +
                     Career.CareerEntry._ID + " STRING PRIMARY KEY," +
                     Career.CareerEntry.COLUMN_CAREER_NAME + " STRING," +
-                    Career.CareerEntry.COLUMN_CAREER_INTRO + " STRING)";
+                    Career.CareerEntry.COLUMN_CAREER_INTRO + " STRING," +
+                    Career.CareerEntry.COLUMN_CAREER_COLOR + " STRING)";
 
     private static final String SQL_DELETE_CAREERS =
             "DROP TABLE IF EXISTS " + Career.CareerEntry.TABLE_NAME;
@@ -187,6 +189,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(Career.CareerEntry._ID, career.getId());
         values.put(Career.CareerEntry.COLUMN_CAREER_NAME, career.getCareerName());
         values.put(Career.CareerEntry.COLUMN_CAREER_INTRO, career.getCareerIntro());
+        values.put(Career.CareerEntry.COLUMN_CAREER_COLOR, career.getCareerColor());
 
         db.insert(Career.CareerEntry.TABLE_NAME, null, values);
         db.close();
@@ -208,7 +211,8 @@ public class DbHelper extends SQLiteOpenHelper {
         Career career = new Career(
                 cursor.getString(0),
                 cursor.getString(1),
-                cursor.getString(2));
+                cursor.getString(2),
+                cursor.getString(3));
 
         cursor.close();
 
@@ -225,11 +229,12 @@ public class DbHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Career setting = new Career();
-                setting.setId(cursor.getString(0));
-                setting.setCareerName(cursor.getString(1));
-                setting.setCareerIntro(cursor.getString(2));
-                careerList.add(setting);
+                Career career = new Career();
+                career.setId(cursor.getString(0));
+                career.setCareerName(cursor.getString(1));
+                career.setCareerIntro(cursor.getString(2));
+                career.setCareerColor(cursor.getString(3));
+                careerList.add(career);
             } while (cursor.moveToNext());
         }
 
@@ -257,6 +262,7 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(MyCareer.MyCareerEntry._ID, myCareer.getId());
         values.put(MyCareer.MyCareerEntry.COLUMN_NAME, myCareer.getName());
+        values.put(MyCareer.MyCareerEntry.COLUMN_COLOR, myCareer.getColor());
 
         db.insert(MyCareer.MyCareerEntry.TABLE_NAME, null, values);
         db.close();
@@ -279,7 +285,8 @@ public class DbHelper extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             myCareer = new MyCareer(
                     cursor.getString(0),
-                    cursor.getString(1));
+                    cursor.getString(1),
+                    cursor.getString(2));
         }
 
         cursor.close();

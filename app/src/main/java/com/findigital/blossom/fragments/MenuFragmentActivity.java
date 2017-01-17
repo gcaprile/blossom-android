@@ -104,7 +104,15 @@ public class MenuFragmentActivity extends FragmentActivity {
         });
 
         TextView txtMenuItemResources = (TextView) findViewById(R.id.txtMenuItemResources);
-        // Todo: OnClickListener
+        txtMenuItemResources.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MyResourcesFragmentActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         TextView txtMenuItemFinancialLiteracy = (TextView) findViewById(R.id.txtMenuItemFinancialLiteracy);
         // Todo: OnClickListener

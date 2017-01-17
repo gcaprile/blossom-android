@@ -10,17 +10,20 @@ public class MyCareer {
 
     String _id;
     String _name;
+    String _color;
 
     public MyCareer() {}
 
     public static class MyCareerEntry implements BaseColumns {
         public static final String TABLE_NAME = "my_career";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_COLOR = "color";
     }
 
-    public MyCareer(String _id, String _name) {
+    public MyCareer(String _id, String _name, String _color) {
         this._id = _id;
         this._name = _name;
+        this._color = _color;
     }
 
     public String getId() {
@@ -39,5 +42,12 @@ public class MyCareer {
         this._name = _name;
     }
 
+    public String getColor() {
+        return _color;
+    }
+
+    public void setColor(String _color) {
+        this._color = _color;
+    }
 
 }

@@ -39,4 +39,8 @@
     <string name="resources">Resources</string>
     <string name="restart_your_journey">Restart your Journey</string>
     <string name="logout">Logout</string>
+    <string name="scholarships">Scholarships</string>
+    <string name="links">Links</string>
+    <string name="due">Due:</string>
+    <string name="amount">Amount:</string>
 </resources>
