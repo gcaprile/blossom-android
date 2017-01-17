@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/cardTransparent"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtTaskTitle"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txtTaskDescription"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txtTaskQuestion"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editTaskResponse"
+            android:textColorHint="@color/white"
+            android:hint="Answer"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:src="@color/buttonTransparent"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+    <View
+        android:background="@color/lineTransparent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <TextView
+        android:text="Userful Links"
+        android:textColor="@color/white"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/llTaskLinks"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+
+</LinearLayout>

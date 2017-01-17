@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llMyProgressLayout"
+    android:orientation="vertical"
+    android:background="@color/mainBkg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llHeaderProgress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/pbHeaderProgress"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateTint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </ProgressBar>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/my_progress"
+                android:textSize="25sp"
+                android:layout_marginTop="25dp"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/btnMenu"
+                android:src="@drawable/ic_navigation_menu_blue"
+                android:layout_centerInParent="true"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/roundcorner_white"
+                android:padding="1dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:background="@color/lineTransparent"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Graph"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtProgressStatus"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:text="Let's Recap"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ListView
+            android:id="@+id/lvTasks"
+            android:divider="@null"
+            android:dividerHeight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </ListView>
+
+    </LinearLayout>
+
+</LinearLayout>

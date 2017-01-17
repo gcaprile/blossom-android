@@ -2,11 +2,13 @@ package com.findigital.blossom.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,6 +56,8 @@ public class LinksPageAdapter extends PagerAdapter {
         txtLinktTitle = (TextView) itemView.findViewById(R.id.txtLinkTitle);
         txtLinkDescription = (TextView) itemView.findViewById(R.id.txtLinkDescription);
         txtLinkUrl = (TextView) itemView.findViewById(R.id.txtLinkUrl);
+
+        txtLinkUrl.setPaintFlags(txtLinkUrl.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         String linkTitle = links.get(position).get("link_title").toString();
         String linkDescription = links.get(position).get("link_description").toString();

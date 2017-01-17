@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFF</color>
     <color name="whiteTransparent">#7dffffff</color>
-    <color name="scholarshipItemBkg">#3dffffff</color>
+    <color name="cardTransparent">#3dffffff</color>
     <color name="introBorder">#8CAAFC</color>
     <color name="mainBkg">#4A90E2</color>
     <color name="button">#3B73B4</color>

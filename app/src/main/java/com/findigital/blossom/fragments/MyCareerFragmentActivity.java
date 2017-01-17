@@ -66,6 +66,14 @@ public class MyCareerFragmentActivity extends FragmentActivity {
             }
         });
 
+        Button btnMyProgress = (Button) findViewById(R.id.btnMyCareerProgress);
+        btnMyProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MyProgressFragmentActivity.class));
+            }
+        });
+
         Button btnMyCareerResources = (Button) findViewById(R.id.btnMyCareerResources);
         btnMyCareerResources.setOnClickListener(new View.OnClickListener() {
             @Override
