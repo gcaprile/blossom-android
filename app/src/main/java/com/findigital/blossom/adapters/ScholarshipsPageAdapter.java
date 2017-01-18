@@ -2,6 +2,7 @@ package com.findigital.blossom.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -103,6 +104,8 @@ public class ScholarshipsPageAdapter extends PagerAdapter {
         txtScholarshipDesc.setText(scholarshipDesc);
         txtScholarshipDue.setText(scholarshipDue);
         txtScholarshipAmount.setText(scholarshipAmount);
+
+        txtScholarshipLink.setPaintFlags(txtScholarshipLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         final String finalUrl = url;
         txtScholarshipLink.setOnClickListener(new View.OnClickListener() {

@@ -105,6 +105,7 @@
 
             <TextView
                 android:id="@+id/txtCareerDetailReqs"
+                android:layout_marginBottom="80dp"
                 android:textSize="18sp"
                 android:textColor="@color/white"
                 android:layout_width="match_parent"

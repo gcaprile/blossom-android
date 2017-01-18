@@ -84,7 +84,13 @@ public class MyProgressFragmentActivity extends FragmentActivity {
 
         careerId = myCareer.getId();
 
-        llProgressLayout.setBackgroundColor(Color.parseColor(myCareer.getColor()));
+        String color = "#" + myCareer.getColor();
+
+        try{
+            llProgressLayout.setBackgroundColor(Color.parseColor(color));
+        } catch (NumberFormatException ex) {
+            llProgressLayout.setBackgroundColor(Color.parseColor(myCareer.getColor()));
+        }
 
         ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
         btnMenu.setOnClickListener(new View.OnClickListener() {

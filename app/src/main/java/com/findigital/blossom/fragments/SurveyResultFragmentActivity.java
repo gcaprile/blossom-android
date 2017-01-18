@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -32,6 +33,16 @@ public class SurveyResultFragmentActivity extends FragmentActivity {
         dbHelper = new DbHelper(getApplicationContext());
 
         final LinearLayout llHeaderProgress = (LinearLayout) findViewById(R.id.llHeaderProgress);
+
+        ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MenuFragmentActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+            }
+        });
 
         ArrayList<Career> careers = new ArrayList<>();
 

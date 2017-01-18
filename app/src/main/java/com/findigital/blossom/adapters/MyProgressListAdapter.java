@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,6 +80,7 @@ public class MyProgressListAdapter extends ArrayAdapter {
         TextView txtTaskQuestion;
         LinearLayout llTaskLinks;
         EditText editTaskResponse;
+        ImageView imgTaskCheckbox;
     }
 
     @Override
@@ -95,6 +98,7 @@ public class MyProgressListAdapter extends ArrayAdapter {
             holder.txtTaskQuestion = (TextView) convertView.findViewById(R.id.txtTaskQuestion);
             holder.llTaskLinks = (LinearLayout) convertView.findViewById(R.id.llTaskLinks);
             holder.editTaskResponse = (EditText) convertView.findViewById(R.id.editTaskResponse);
+            holder.imgTaskCheckbox = (ImageView) convertView.findViewById(R.id.imgTaskCheckbox);
             convertView.setTag(holder);
         } else {
             holder = (MyProgressListAdapter.ViewHolder) convertView.getTag();
@@ -133,11 +137,15 @@ public class MyProgressListAdapter extends ArrayAdapter {
                 txtTaskLink.setText(jsonObject.get("title").toString());
                 txtTaskLink.setTextColor(Color.WHITE);
                 txtTaskLink.setPaintFlags(txtTaskLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                txtTaskLink.setTypeface(Typeface.DEFAULT_BOLD);
+                txtTaskLink.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_link_m, 0, 0, 0);
+                txtTaskLink.setCompoundDrawablePadding(10);
+
                 final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
                 );
-                params.setMargins(0, 0, 0, 10);
+                params.setMargins(0, 0, 0, 15);
                 txtTaskLink.setLayoutParams(params);
 
                 final String url = jsonObject.get("href").toString();
@@ -170,6 +178,7 @@ public class MyProgressListAdapter extends ArrayAdapter {
                             }
                         }
                         updateUserResponses();
+                        holder.imgTaskCheckbox.setImageDrawable(null);
                     } else {
                         for (int i=0; i < userResponses.size(); i ++) {
                             BuiltObject response = userResponses.get(i);
@@ -178,6 +187,8 @@ public class MyProgressListAdapter extends ArrayAdapter {
                             }
                         }
                         addTaskResponse(v.getText().toString(), task.getUid());
+                        holder.imgTaskCheckbox.setImageDrawable(
+                                context.getResources().getDrawable(R.drawable.ic_check_mark));
                     }
                     InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);

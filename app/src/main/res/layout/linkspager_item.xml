@@ -25,6 +25,9 @@
     <TextView
         android:id="@+id/txtLinkUrl"
         android:layout_marginBottom="10dp"
+        android:drawableLeft="@drawable/ic_link_m"
+        android:drawablePadding="5dip"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:layout_width="match_parent"

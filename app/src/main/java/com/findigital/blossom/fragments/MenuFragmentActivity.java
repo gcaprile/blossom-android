@@ -1,6 +1,7 @@
 package com.findigital.blossom.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -118,7 +119,17 @@ public class MenuFragmentActivity extends FragmentActivity {
         // Todo: OnClickListener
 
         TextView txtMenuItemContact = (TextView) findViewById(R.id.txtMenuItemContact);
-        // Todo: OnClickListener
+        txtMenuItemContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                emailIntent.setType("vnd.android.cursor.item/email");
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {"aba@fin-digital.com"});
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Blossom for Android Feedback");
+                startActivity(Intent.createChooser(emailIntent, "Send mail using..."));
+            }
+        });
 
         TextView txtMenuItemRestartPath = (TextView) findViewById(R.id.txtMenuItemRestartPath);
         txtMenuItemRestartPath.setOnClickListener(new View.OnClickListener() {

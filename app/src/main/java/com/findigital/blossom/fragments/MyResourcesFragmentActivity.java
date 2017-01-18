@@ -58,8 +58,15 @@ public class MyResourcesFragmentActivity extends FragmentActivity {
         MyCareer myCareer = dbHelper.getMyCareer();
         careerId = myCareer.getId();
 
+        String color = "#" + myCareer.getColor();
+
         LinearLayout llMyResourcesLayout = (LinearLayout) findViewById(R.id.llMyResourcesLayout);
-        llMyResourcesLayout.setBackgroundColor(Color.parseColor(myCareer.getColor()));
+
+        try {
+            llMyResourcesLayout.setBackgroundColor(Color.parseColor(color));
+        } catch (NumberFormatException ex) {
+            llMyResourcesLayout.setBackgroundColor(Color.parseColor(myCareer.getColor()));
+        }
 
         ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
         btnMenu.setOnClickListener(new View.OnClickListener() {

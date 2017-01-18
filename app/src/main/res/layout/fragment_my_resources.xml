@@ -34,7 +34,7 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -53,13 +53,18 @@
                     android:id="@+id/btnMenu"
                     android:src="@drawable/ic_navigation_menu_blue"
                     android:layout_centerInParent="true"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/roundcorner_white"
                     android:padding="1dp" />
 
             </RelativeLayout>
+
+            <View
+                android:background="@color/lineTransparent"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
 
             <TextView
                 android:text="@string/videos"

@@ -21,6 +21,15 @@
         </ProgressBar>
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/btnMenu"
+        android:src="@drawable/ic_navigation_menu_blue"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="right"
+        android:background="@drawable/roundcorner_white"
+        android:padding="1dp" />
+
     <TextView
         android:layout_marginTop="30dp"
         android:text="MY RESULTS"
