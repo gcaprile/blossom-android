@@ -1,11 +1,9 @@
 package com.findigital.blossom.fragments;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,13 +11,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.findigital.blossom.R;
-import com.findigital.blossom.adapters.CareersListAdapter;
-import com.findigital.blossom.adapters.CareersPageAdapter;
+import com.findigital.blossom.adapters.FinancialLiteracyPageAdapter;
+import com.findigital.blossom.adapters.LiteracyListAdapter;
 import com.findigital.blossom.helpers.API;
 import com.raweng.built.Built;
 import com.raweng.built.BuiltApplication;
@@ -33,53 +33,63 @@ import com.raweng.built.utilities.BuiltConstant;
 import java.util.List;
 
 /**
- * Created by 14-AB109LA on 28/12/2016.
+ * Created by 14-AB109LA on 01/17/2017.
  */
 
-public class CareersFragmentActivity extends FragmentActivity {
+public class FinancialLiteracyFragmentActivity extends FragmentActivity {
 
-    String careerId;
+    String literacyId;
     Boolean listVisible = false;
 
     ViewPager viewPager;
-    CareersListAdapter listAdapter;
-    PagerAdapter pagerAdapter;
-    LinearLayout llFindCareer;
+    LiteracyListAdapter listAdapter;
+    FinancialLiteracyPageAdapter pagerAdapter;
+    LinearLayout llBackground;
 
-    List<BuiltObject> careers;
-    ListView lvCareers;
+    List<BuiltObject> literacy;
+    ListView lvContentItems;
 
-    Button btnCareerDetail;
+    Button btnContentDetail;
     EditText editSearch;
-    TextView txtCareersTitle;
+    TextView txtContentTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_careers);
+        setContentView(R.layout.fragment_financial_literacy);
 
-        llFindCareer = (LinearLayout) findViewById(R.id.llFindCareer);
+        llBackground = (LinearLayout) findViewById(R.id.llBackground);
 
-        lvCareers = (ListView) findViewById(R.id.lvCareers);
-        lvCareers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MenuFragmentActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+            }
+        });
+
+        lvContentItems = (ListView) findViewById(R.id.lvContentItems);
+        lvContentItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                careerId = careers.get(position).getUid();
+                literacyId = literacy.get(position).getUid();
 
                 Intent intent = new Intent(getApplicationContext(), CareerDetailFragment.class);
-                intent.putExtra("careerId", careerId);
+                intent.putExtra("literacyId", literacyId);
                 startActivity(intent);
             }
         });
 
-        txtCareersTitle = (TextView) findViewById(R.id.txtCareersTitle);
+        txtContentTitle = (TextView) findViewById(R.id.txtContentTitle);
 
-        btnCareerDetail = (Button) findViewById(R.id.btnCareerDetail);
-        btnCareerDetail.setOnClickListener(new View.OnClickListener() {
+        btnContentDetail = (Button) findViewById(R.id.btnContentDetail);
+        btnContentDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CareerDetailFragment.class);
-                intent.putExtra("careerId", careerId);
+                intent.putExtra("literacyId", literacyId);
                 startActivity(intent);
             }
         });
@@ -89,8 +99,8 @@ public class CareersFragmentActivity extends FragmentActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    lvCareers.setVisibility(View.VISIBLE);
-                    txtCareersTitle.setText(getString(R.string.search));
+                    lvContentItems.setVisibility(View.VISIBLE);
+                    txtContentTitle.setText(getString(R.string.search));
                     listVisible = true;
                     togglePager(false);
                 }
@@ -114,7 +124,7 @@ public class CareersFragmentActivity extends FragmentActivity {
             }
         });
 
-        viewPager = (ViewPager) findViewById(R.id.pagerCareers);
+        viewPager = (ViewPager) findViewById(R.id.pagerItems);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -123,10 +133,10 @@ public class CareersFragmentActivity extends FragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-                String careerColor = "#" + careers.get(position).get("career_color").toString();
-                careerId = careers.get(position).getUid();
+                String bkgColor = "#" + literacy.get(position).get("fin_lit_background_color").toString();
+                literacyId = literacy.get(position).getUid();
 
-                llFindCareer.setBackgroundColor(Color.parseColor(careerColor));
+                llBackground.setBackgroundColor(Color.parseColor(bkgColor));
             }
 
             @Override
@@ -140,31 +150,36 @@ public class CareersFragmentActivity extends FragmentActivity {
             final LinearLayout llHeaderProgress = (LinearLayout) findViewById(R.id.llHeaderProgress);
             llHeaderProgress.setVisibility(View.VISIBLE);
             BuiltApplication builtApplication  = Built.application(getApplicationContext(), API.API_KEY);
-            BuiltQuery queryCareers = builtApplication.classWithUid("career_content").query();
+            BuiltQuery query = builtApplication.classWithUid("financial_literacy").query();
 
-            queryCareers.ascending("career_name");
+            query.ascending("fin_lit_title");
 
-            queryCareers.exec(new QueryResultsCallBack() {
+            query.exec(new QueryResultsCallBack() {
                 @Override
                 public void onCompletion(BuiltConstant.BuiltResponseType responseType, BuiltQueryResult queryResultObject, BuiltError error) {
                     if(error == null){
                         // the queryResultObject will contain the objects of the class
-                        careers = queryResultObject.getResultObjects();
+                        literacy = queryResultObject.getResultObjects();
 
-                        pagerAdapter = new CareersPageAdapter(getApplicationContext(), careers);
+                        pagerAdapter = new FinancialLiteracyPageAdapter(getApplicationContext(), literacy);
                         viewPager.setAdapter(pagerAdapter);
 
-                        listAdapter = new CareersListAdapter(getApplicationContext(), careers);
-                        lvCareers.setAdapter(listAdapter);
+                        listAdapter = new LiteracyListAdapter(getApplicationContext(), literacy);
+                        lvContentItems.setAdapter(listAdapter);
 
-                        String careerColor = "#" + careers.get(0).get("career_color").toString();
-                        careerId = careers.get(0).getUid();
+                        String careerColor = "#" + literacy.get(0).get("fin_lit_background_color").toString();
+                        literacyId = literacy.get(0).getUid();
 
-                        llFindCareer.setBackgroundColor(Color.parseColor(careerColor));
+                        llBackground.setBackgroundColor(Color.parseColor(careerColor));
                         llHeaderProgress.setVisibility(View.GONE);
 
-                    }else{
+                    } else {
                         System.out.println(error.getErrorMessage());
+                        Toast.makeText(
+                                getApplicationContext(),
+                                error.getErrorMessage(),
+                                Toast.LENGTH_SHORT
+                        ).show();
                         // query failed
                         // refer to the 'error' object for more details
                     }
@@ -178,9 +193,9 @@ public class CareersFragmentActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         if (listVisible) {
-            lvCareers.setVisibility(View.GONE);
+            lvContentItems.setVisibility(View.GONE);
             togglePager(true);
-            txtCareersTitle.setText(getString(R.string.find_a_career));
+            txtContentTitle.setText(getString(R.string.financial_literacy_caps));
             editSearch.clearFocus();
             listVisible = false;
         } else {
@@ -190,10 +205,10 @@ public class CareersFragmentActivity extends FragmentActivity {
 
     public void togglePager(Boolean show) {
         if (show) {
-            btnCareerDetail.setVisibility(View.VISIBLE);
+            btnContentDetail.setVisibility(View.VISIBLE);
             viewPager.setVisibility(View.VISIBLE);
         } else {
-            btnCareerDetail.setVisibility(View.GONE);
+            btnContentDetail.setVisibility(View.GONE);
             viewPager.setVisibility(View.GONE);
         }
     }

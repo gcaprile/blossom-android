@@ -92,6 +92,8 @@
             android:name=".fragments.MyResourcesFragmentActivity" />
         <activity
             android:name=".fragments.MyProgressFragmentActivity" />
+        <activity
+            android:name=".fragments.FinancialLiteracyFragmentActivity" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="754fe49fab28b562c04f2b1a6309549662655891" />

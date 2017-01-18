@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llBackground"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/mainBkg"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llHeaderProgress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/pbHeaderProgress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </ProgressBar>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editSearch"
+            android:background="@drawable/search"
+            android:paddingStart="10dp"
+            android:layout_weight="1"
+            android:textCursorDrawable="@null"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:textColor="@color/flatBlack"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <ImageButton
+            android:id="@+id/btnMenu"
+            android:src="@drawable/ic_navigation_menu_blue"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/roundcorner_white"
+            android:padding="1dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtContentTitle"
+        android:text="@string/financial_literacy_caps"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <ListView
+        android:id="@+id/lvContentItems"
+        android:visibility="gone"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </ListView>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pagerItems"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp" />
+
+    <Button
+        android:id="@+id/btnContentDetail"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_transparent"
+        android:textColor="@color/white"
+        android:text="@string/read_more"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+</LinearLayout>

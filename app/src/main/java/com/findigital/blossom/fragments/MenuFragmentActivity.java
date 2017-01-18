@@ -116,7 +116,15 @@ public class MenuFragmentActivity extends FragmentActivity {
         });
 
         TextView txtMenuItemFinancialLiteracy = (TextView) findViewById(R.id.txtMenuItemFinancialLiteracy);
-        // Todo: OnClickListener
+        txtMenuItemFinancialLiteracy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FinancialLiteracyFragmentActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         TextView txtMenuItemContact = (TextView) findViewById(R.id.txtMenuItemContact);
         txtMenuItemContact.setOnClickListener(new View.OnClickListener() {
