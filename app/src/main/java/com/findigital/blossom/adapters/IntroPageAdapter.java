@@ -2,7 +2,6 @@ package com.findigital.blossom.adapters;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.findigital.blossom.R;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by 14-AB109LA on 27/12/2016.

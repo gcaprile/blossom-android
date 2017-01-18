@@ -86,6 +86,9 @@ public class MainActivity extends Activity {
             startActivity(intent);
         }
 
+        Intent intent = new Intent(this, IntroFragmentActivity.class);
+        startActivity(intent);
+
         final Intent careers = new Intent(this, CareersFragmentActivity.class);
         final Intent survey = new Intent(this, SurveyFragmentActivity.class);
 
