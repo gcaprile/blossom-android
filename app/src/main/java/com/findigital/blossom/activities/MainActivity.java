@@ -24,12 +24,14 @@ import com.findigital.blossom.models.Career;
 import com.findigital.blossom.models.Setting;
 import com.findigital.blossom.models.SurveyQuestion;
 import com.findigital.blossom.models.SurveyResponse;
+import com.findigital.blossom.models.User;
 import com.raweng.built.Built;
 import com.raweng.built.BuiltApplication;
 import com.raweng.built.BuiltError;
 import com.raweng.built.BuiltObject;
 import com.raweng.built.BuiltQuery;
 import com.raweng.built.BuiltQueryResult;
+import com.raweng.built.BuiltUser;
 import com.raweng.built.QueryResultsCallBack;
 import com.raweng.built.utilities.BuiltConstant;
 
@@ -43,6 +45,7 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     DbHelper dbHelper;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +53,11 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-        } catch (NoSuchAlgorithmException e) {
-        }
-
         dbHelper = new DbHelper(getApplicationContext());
+
+        user = dbHelper.getUser();
+
+        System.out.println(user.getCareerPathId());
 
         downloadQuestions();
         downloadSurveyResponses();
@@ -85,9 +80,6 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(this, IntroFragmentActivity.class);
             startActivity(intent);
         }
-
-        Intent intent = new Intent(this, IntroFragmentActivity.class);
-        startActivity(intent);
 
         final Intent careers = new Intent(this, CareersFragmentActivity.class);
         final Intent survey = new Intent(this, SurveyFragmentActivity.class);

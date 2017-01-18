@@ -3,14 +3,12 @@ package com.findigital.blossom.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +16,7 @@ import com.findigital.blossom.R;
 import com.findigital.blossom.helpers.API;
 import com.findigital.blossom.helpers.DbHelper;
 import com.findigital.blossom.models.MyCareer;
+import com.findigital.blossom.models.User;
 import com.raweng.built.Built;
 import com.raweng.built.BuiltApplication;
 import com.raweng.built.BuiltError;
@@ -38,7 +37,15 @@ import java.util.List;
 
 public class MyCareerFragmentActivity extends FragmentActivity {
 
+    DbHelper dbHelper;
+
     String careerColor;
+
+    TextView txtMyCareerName;
+    TextView txtMyCareerIntro;
+    LinearLayout rlMyCareerLayout;
+    LinearLayout loader;
+    ImageView imgMyCareerCover;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,15 +53,16 @@ public class MyCareerFragmentActivity extends FragmentActivity {
 
         setContentView(R.layout.fragment_my_career);
 
-        DbHelper dbHelper = new DbHelper(getApplicationContext());
+        dbHelper = new DbHelper(getApplicationContext());
 
         MyCareer myCareer = dbHelper.getMyCareer();
+        User user  = dbHelper.getUser();
 
-        final TextView txtMyCareerName = (TextView) findViewById(R.id.txtMyCareerName);
-        final TextView txtMyCareerIntro = (TextView) findViewById(R.id.txtMyCareerIntro);
-        final LinearLayout rlMyCareerLayout = (LinearLayout) findViewById(R.id.rlMyCareerLayout);
-        final LinearLayout loader = (LinearLayout) findViewById(R.id.llHeaderProgress);
-        final ImageView imgMyCareerCover = (ImageView) findViewById(R.id.imgMyCareerCover);
+        txtMyCareerName = (TextView) findViewById(R.id.txtMyCareerName);
+        txtMyCareerIntro = (TextView) findViewById(R.id.txtMyCareerIntro);
+        rlMyCareerLayout = (LinearLayout) findViewById(R.id.rlMyCareerLayout);
+        loader = (LinearLayout) findViewById(R.id.llHeaderProgress);
+        imgMyCareerCover = (ImageView) findViewById(R.id.imgMyCareerCover);
 
         ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
         btnMenu.setOnClickListener(new View.OnClickListener() {
@@ -82,13 +90,23 @@ public class MyCareerFragmentActivity extends FragmentActivity {
             }
         });
 
+        // Verify user career
+        if (myCareer.getId() != null) {
+            getMyCareer(myCareer.getId());
+        } else {
+            getMyCareer(user.getCareerPathId());
+        }
+
+    }
+
+    private void getMyCareer(final String careerId) {
         try {
             BuiltApplication builtApplication  = Built.application(getApplicationContext(), API.API_KEY);
             BuiltQuery queryCareers = builtApplication.classWithUid("career_content").query();
 
             loader.setVisibility(View.VISIBLE);
 
-            queryCareers.where("uid", myCareer.getId()).exec(new QueryResultsCallBack() {
+            queryCareers.where("uid", careerId).exec(new QueryResultsCallBack() {
                 @Override
                 public void onCompletion(BuiltConstant.BuiltResponseType responseType, BuiltQueryResult queryResultObject, BuiltError error) {
                     if(error == null){
@@ -104,6 +122,10 @@ public class MyCareerFragmentActivity extends FragmentActivity {
                         txtMyCareerName.setText(careerName);
                         txtMyCareerIntro.setText(careerIntro);
 
+                        MyCareer myCareer = new MyCareer(careerId, careerName, careerColor);
+                        dbHelper.deleteMyCareer();
+                        dbHelper.addMyCareer(myCareer);
+
                         try {
                             JSONObject careerImageObject = new JSONObject(careerImage);
                             String url = careerImageObject.get("url").toString();
@@ -117,7 +139,7 @@ public class MyCareerFragmentActivity extends FragmentActivity {
                     } else {
                         System.out.println(error.getErrorMessage());
                         Toast.makeText(getApplicationContext(),
-                                error.getErrorMessage(),
+                                "Something went wrong, please try again",
                                 Toast.LENGTH_SHORT).show();
                     }
                     loader.setVisibility(View.GONE);

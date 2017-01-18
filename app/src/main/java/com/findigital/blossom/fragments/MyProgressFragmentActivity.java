@@ -8,6 +8,7 @@ import android.os.PersistableBundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ public class MyProgressFragmentActivity extends FragmentActivity {
     Integer totalCompleted;
 
     String careerId;
+    String shareMessage = "No goals set yet for this career. Stay tuned!";
     String[] userResponsesArray;
 
     ListView lvTasks;
@@ -103,6 +105,18 @@ public class MyProgressFragmentActivity extends FragmentActivity {
         } catch (NumberFormatException ex) {
             llProgressLayout.setBackgroundColor(Color.parseColor(myCareer.getColor()));
         }
+
+        ImageView btnShare = (ImageView) findViewById(R.id.btnShare);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
 
         ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
         btnMenu.setOnClickListener(new View.OnClickListener() {
@@ -230,12 +244,35 @@ public class MyProgressFragmentActivity extends FragmentActivity {
                             " out of " + String.valueOf(totalTasks) + " tasks " +
                             "towards your " + myCareer.getName() + " career." +
                             "\n\nKeep it going!";
+
+            shareMessage =
+                    "I've completed " + String.valueOf(totalCompleted) +
+                            " out of " + String.valueOf(totalTasks) + " tasks " +
+                            "towards my " + myCareer.getName() + " career goal!";
+
         } else {
             progressMsg =
                     "You have completed " + String.valueOf(totalCompleted) +
                             " out of " + String.valueOf(totalTasks) + " tasks " +
                             "towards your " + myCareer.getName() + " career." +
                             "\n\nLet's get started!";
+
+            shareMessage =
+                    "I've completed " + String.valueOf(totalCompleted) +
+                            " out of " + String.valueOf(totalTasks) + " tasks " +
+                            "towards my " + myCareer.getName() + " career goal that I need to get " +
+                            "started on. I can do this!";
+        }
+
+        if (totalCompleted == totalTasks) {
+            progressMsg =
+                    "Nice! You have completed all " + String.valueOf(totalCompleted) +
+                            " tasks towards your " + myCareer.getName() + " career." +
+                            "\n\nNice job, you are ready!";
+
+            shareMessage =
+                    "I've completed all " + String.valueOf(totalCompleted) +
+                            " tasks towards my " + myCareer.getName() + " career goal, I'm finally ready!";
         }
 
         Integer percComplete = (int)(((double)totalCompleted / (double)totalTasks) * 100);
