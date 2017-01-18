@@ -76,7 +76,7 @@ public class FinancialLiteracyFragmentActivity extends FragmentActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 literacyId = literacy.get(position).getUid();
 
-                Intent intent = new Intent(getApplicationContext(), CareerDetailFragment.class);
+                Intent intent = new Intent(getApplicationContext(), FinancialLiteracyDetailFragmentActivity.class);
                 intent.putExtra("literacyId", literacyId);
                 startActivity(intent);
             }
@@ -88,7 +88,7 @@ public class FinancialLiteracyFragmentActivity extends FragmentActivity {
         btnContentDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CareerDetailFragment.class);
+                Intent intent = new Intent(getApplicationContext(), FinancialLiteracyDetailFragmentActivity.class);
                 intent.putExtra("literacyId", literacyId);
                 startActivity(intent);
             }
