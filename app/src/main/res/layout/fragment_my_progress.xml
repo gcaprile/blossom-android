@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llMyProgressLayout"
     android:orientation="vertical"
     android:background="@color/mainBkg"
@@ -35,7 +36,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="@string/my_progress"
+                android:id="@+id/txtProgressCareer"
                 android:textSize="25sp"
                 android:layout_marginTop="25dp"
                 android:layout_centerInParent="true"
@@ -69,24 +70,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="Graph"
-                android:visibility="gone"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+            <at.grabner.circleprogress.CircleProgressView
+                android:id="@+id/progressTasks"
+                app:cpv_value="100"
+                app:cpv_textSize="30sp"
+                app:cpv_innerContourColor="@color/buttonTransparent"
+                app:cpv_outerContourColor="@color/buttonTransparent"
+                app:cpv_rimColor="@color/buttonTransparent"
+                app:cpv_barColor="@color/white"
+                app:cpv_textColor="@color/white"
+                app:cpv_showUnit="true"
+                app:cpv_unit="%"
+                app:cpv_unitColor="@color/white"
+                app:cpv_unitSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
 
-            <TextView
-                android:id="@+id/txtProgressStatus"
-                android:textColor="@color/white"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/my_progress"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txtProgressStatus"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <TextView
-            android:text="Let's Recap"
+            android:text="@string/lets_recap"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:textStyle="bold"

@@ -34,8 +34,12 @@ import com.raweng.twitter4j.internal.org.json.JSONArray;
 import com.raweng.twitter4j.internal.org.json.JSONException;
 import com.raweng.twitter4j.internal.org.json.JSONObject;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Array;
 import java.util.List;
+
+import at.grabner.circleprogress.CircleProgressView;
 
 import static android.view.View.GONE;
 
@@ -62,17 +66,23 @@ public class MyProgressFragmentActivity extends FragmentActivity {
 
     TextView txtProgressStatus;
 
+    CircleProgressView progressTasks;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.fragment_my_progress);
 
+        progressTasks = (CircleProgressView) findViewById(R.id.progressTasks);
+        progressTasks.setValue(0);
+
         dbHelper = new DbHelper(getApplicationContext());
         user = dbHelper.getUser();
 
         lvTasks = (ListView) findViewById(R.id.lvTasks);
 
+        TextView txtProgressCareer = (TextView) findViewById(R.id.txtProgressCareer);
         txtProgressStatus = (TextView) findViewById(R.id.txtProgressStatus);
 
         LinearLayout llProgressLayout = (LinearLayout) findViewById(R.id.llMyProgressLayout);
@@ -83,6 +93,8 @@ public class MyProgressFragmentActivity extends FragmentActivity {
         myCareer = dbHelper.getMyCareer();
 
         careerId = myCareer.getId();
+
+        txtProgressCareer.setText(myCareer.getName());
 
         String color = "#" + myCareer.getColor();
 
@@ -226,6 +238,8 @@ public class MyProgressFragmentActivity extends FragmentActivity {
                             "\n\nLet's get started!";
         }
 
+        Integer percComplete = (int)(((double)totalCompleted / (double)totalTasks) * 100);
+        progressTasks.setValue(percComplete);
         txtProgressStatus.setText(progressMsg);
     }
 }

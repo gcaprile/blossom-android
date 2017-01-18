@@ -208,6 +208,13 @@ public class MyProgressListAdapter extends ArrayAdapter {
             }
         }
 
+        if (taskResponse.length() > 0) {
+            holder.imgTaskCheckbox.setImageDrawable(
+                    context.getResources().getDrawable(R.drawable.ic_check_mark));
+        } else {
+            holder.imgTaskCheckbox.setImageDrawable(null);
+        }
+
         holder.editTaskResponse.setText(taskResponse);
 
         if (task.get("user_task_question") != null) {
