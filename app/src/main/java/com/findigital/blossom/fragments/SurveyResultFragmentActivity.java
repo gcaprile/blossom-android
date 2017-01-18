@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -25,12 +26,16 @@ public class SurveyResultFragmentActivity extends FragmentActivity {
     ListView lvCareers;
     DbHelper dbHelper;
 
+    String shareMessage;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_survey_result);
 
         dbHelper = new DbHelper(getApplicationContext());
+
+        ArrayList<Career> careers = new ArrayList<>();
 
         final LinearLayout llHeaderProgress = (LinearLayout) findViewById(R.id.llHeaderProgress);
 
@@ -44,7 +49,17 @@ public class SurveyResultFragmentActivity extends FragmentActivity {
             }
         });
 
-        ArrayList<Career> careers = new ArrayList<>();
+        ImageView btnShare = (ImageView) findViewById(R.id.btnShare);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
 
         Intent intent = getIntent();
         Integer totalPoints = Integer.valueOf(intent.getStringExtra("totalPoints"));
@@ -96,6 +111,14 @@ public class SurveyResultFragmentActivity extends FragmentActivity {
         SurveyResultListAdapter listAdapter =
                 new SurveyResultListAdapter(getApplicationContext(), SurveyResultFragmentActivity.this, careers);
         lvCareers.setAdapter(listAdapter);
+
+        ArrayList<String> topCareers = new ArrayList<>();
+        for (Career item : careers) {
+            topCareers.add(item.getCareerName());
+        }
+
+        shareMessage = "I found some great career paths for me on the ABA Blossom app! These are my top " +
+                String.valueOf(careers.size()) + ": " + android.text.TextUtils.join(", ", topCareers);
 
         llHeaderProgress.setVisibility(View.GONE);
 

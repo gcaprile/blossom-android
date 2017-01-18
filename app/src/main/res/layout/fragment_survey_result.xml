@@ -21,6 +21,15 @@
         </ProgressBar>
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/btnShare"
+        android:src="@drawable/ic_share"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="80dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp" />
+
     <ImageButton
         android:id="@+id/btnMenu"
         android:src="@drawable/ic_navigation_menu_blue"
