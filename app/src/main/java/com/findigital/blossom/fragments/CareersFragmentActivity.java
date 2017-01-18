@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,6 +60,16 @@ public class CareersFragmentActivity extends FragmentActivity {
         setContentView(R.layout.fragment_careers);
 
         llFindCareer = (LinearLayout) findViewById(R.id.llFindCareer);
+
+        ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MenuFragmentActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+            }
+        });
 
         lvCareers = (ListView) findViewById(R.id.lvCareers);
         lvCareers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
