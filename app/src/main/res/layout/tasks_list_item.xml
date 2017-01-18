@@ -38,17 +38,22 @@
 
         <EditText
             android:id="@+id/editTaskResponse"
-            android:textColorHint="@color/white"
             android:hint="Answer"
+            android:background="@drawable/flat_input"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/flatBlack"
+            android:textColorHint="@color/buttonTransparent"
+            android:padding="5dp"
             android:inputType="text"
             android:imeOptions="actionDone"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp" />
 
         <ImageView
             android:id="@+id/imgTaskCheckbox"
             android:background="@color/buttonTransparent"
+            android:layout_marginLeft="5dp"
             android:layout_width="40dp"
             android:layout_height="40dp" />
 
