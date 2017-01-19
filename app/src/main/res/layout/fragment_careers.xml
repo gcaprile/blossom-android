@@ -35,7 +35,7 @@
             android:paddingStart="10dp"
             android:layout_weight="1"
             android:textCursorDrawable="@null"
-            android:drawableStart="@android:drawable/ic_menu_search"
+            android:drawableStart="@drawable/ic_search"
             android:textColor="@color/flatBlack"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
