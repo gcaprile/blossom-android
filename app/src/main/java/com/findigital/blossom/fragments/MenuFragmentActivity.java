@@ -1,11 +1,9 @@
 package com.findigital.blossom.fragments;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,7 +23,7 @@ import com.raweng.built.BuiltResultCallBack;
 import com.raweng.built.BuiltUser;
 import com.raweng.built.utilities.BuiltConstant;
 
-import org.w3c.dom.Text;
+import static android.view.View.GONE;
 
 /**
  * Created by 14-AB109LA on 11/1/2017.
@@ -167,7 +165,6 @@ public class MenuFragmentActivity extends FragmentActivity {
         LinearLayout llMenuItemResources = (LinearLayout) findViewById(R.id.llMenuItemResources);
         LinearLayout llMenuItemRestartPath = (LinearLayout) findViewById(R.id.llMenuItemRestartPath);
 
-
         // Verify user session status
         if (user.getId() != null) {
             // User logged in
@@ -175,14 +172,16 @@ public class MenuFragmentActivity extends FragmentActivity {
             llMenuItemResources.setVisibility(View.VISIBLE);
             llMenuItemRestartPath.setVisibility(View.VISIBLE);
             txtMenuItemLogout.setVisibility(View.VISIBLE);
-            txtMenuItemLogin.setVisibility(View.GONE);
+            txtMenuItemLogin.setVisibility(GONE);
+            btnMenuHome.setVisibility(GONE);
         } else {
             // User not logged in
-            llMenuItemMyCareer.setVisibility(View.GONE);
-            llMenuItemResources.setVisibility(View.GONE);
-            llMenuItemRestartPath.setVisibility(View.GONE);
-            txtMenuItemLogout.setVisibility(View.GONE);
+            llMenuItemMyCareer.setVisibility(GONE);
+            llMenuItemResources.setVisibility(GONE);
+            llMenuItemRestartPath.setVisibility(GONE);
+            txtMenuItemLogout.setVisibility(GONE);
             txtMenuItemLogin.setVisibility(View.VISIBLE);
+            btnMenuHome.setVisibility(View.VISIBLE);
         }
     }
 
@@ -206,14 +205,16 @@ public class MenuFragmentActivity extends FragmentActivity {
                 @Override
                 public void onCompletion(BuiltConstant.BuiltResponseType builtResponseType, BuiltError error) {
                     if (error == null) {
+                        DbHelper dbHelper = new DbHelper(getApplicationContext());
+                        dbHelper.deleteMyCareer();
                         // user has logged in successfully
                         System.out.println("CAREER PATH RESTARTED");
                         Toast.makeText(getApplicationContext(),
                                 "Your Career Path has been restarted",
                                 Toast.LENGTH_SHORT).show();
                         // Navigate to My Career view
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     } else {
                         System.out.println(error);
                         Toast.makeText(getApplicationContext(),

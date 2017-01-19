@@ -2,6 +2,7 @@ package com.findigital.blossom.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.findigital.blossom.R;
+import com.findigital.blossom.activities.MainActivity;
 import com.findigital.blossom.helpers.API;
 import com.findigital.blossom.helpers.DbHelper;
 import com.findigital.blossom.models.MyCareer;
@@ -46,6 +48,7 @@ public class MyCareerFragmentActivity extends FragmentActivity {
     LinearLayout rlMyCareerLayout;
     LinearLayout loader;
     ImageView imgMyCareerCover;
+    ImageButton btnMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,7 @@ public class MyCareerFragmentActivity extends FragmentActivity {
         dbHelper = new DbHelper(getApplicationContext());
 
         MyCareer myCareer = dbHelper.getMyCareer();
-        User user  = dbHelper.getUser();
+        User user = dbHelper.getUser();
 
         txtMyCareerName = (TextView) findViewById(R.id.txtMyCareerName);
         txtMyCareerIntro = (TextView) findViewById(R.id.txtMyCareerIntro);
@@ -64,7 +67,7 @@ public class MyCareerFragmentActivity extends FragmentActivity {
         loader = (LinearLayout) findViewById(R.id.llHeaderProgress);
         imgMyCareerCover = (ImageView) findViewById(R.id.imgMyCareerCover);
 
-        ImageButton btnMenu = (ImageButton) findViewById(R.id.btnMenu);
+        btnMenu = (ImageButton) findViewById(R.id.btnMenu);
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,10 +96,12 @@ public class MyCareerFragmentActivity extends FragmentActivity {
         // Verify user career
         if (myCareer.getId() != null) {
             getMyCareer(myCareer.getId());
-        } else {
+        } else if (user.getCareerPathId() != null && user.getCareerPathId().length() > 0) {
             getMyCareer(user.getCareerPathId());
+        } else {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
         }
-
     }
 
     private void getMyCareer(final String careerId) {
@@ -121,6 +126,8 @@ public class MyCareerFragmentActivity extends FragmentActivity {
                         rlMyCareerLayout.setBackgroundColor(Color.parseColor(careerColor));
                         txtMyCareerName.setText(careerName);
                         txtMyCareerIntro.setText(careerIntro);
+
+                        drawMenuButton(careerColor);
 
                         MyCareer myCareer = new MyCareer(careerId, careerName, careerColor);
                         dbHelper.deleteMyCareer();
@@ -148,5 +155,13 @@ public class MyCareerFragmentActivity extends FragmentActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void drawMenuButton(String color) {
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.OVAL);
+        shape.setColor(Color.parseColor(color));
+        shape.setStroke(3, Color.WHITE);
+        btnMenu.setBackground(shape);
     }
 }

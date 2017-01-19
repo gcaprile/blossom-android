@@ -47,6 +47,8 @@ import org.w3c.dom.Text;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.findigital.blossom.helpers.API.API_KEY;
+
 /**
  * ABA
  * Created by Ramon Zuniga on 29/12/2016.
@@ -54,8 +56,6 @@ import java.util.List;
  */
 
 public class CareerDetailFragment extends FragmentActivity {
-
-    String API_KEY = "blta5ec08d170ee25c5";
 
     String careerId;
     String careerName;
@@ -86,6 +86,13 @@ public class CareerDetailFragment extends FragmentActivity {
             }
         });
 
+        ImageView imgNavBack = (ImageView) findViewById(R.id.imgNavBack);
+        imgNavBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         try {
             BuiltApplication builtApplication  = Built.application(getApplicationContext(),API_KEY);
@@ -269,7 +276,7 @@ public class CareerDetailFragment extends FragmentActivity {
 
     private void updateUserCareerPath(String userUid, final Context context) {
         try {
-            BuiltApplication builtApplication = Built.application(context, API.API_KEY);
+            BuiltApplication builtApplication = Built.application(context, API_KEY);
             final BuiltUser userObject  =  builtApplication.user(userUid);
 
             MyCareer myCareer = dbHelper.getMyCareer();

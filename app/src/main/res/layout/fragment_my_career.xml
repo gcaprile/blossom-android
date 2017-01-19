@@ -38,7 +38,7 @@
 
             <ImageButton
                 android:id="@+id/btnMenu"
-                android:src="@drawable/ic_navigation_menu_blue"
+                android:src="@drawable/ic_navigation_menu"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentTop="true"

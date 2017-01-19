@@ -17,10 +17,12 @@ import com.findigital.blossom.R;
 import com.findigital.blossom.fragments.CareersFragmentActivity;
 import com.findigital.blossom.fragments.IntroFragmentActivity;
 import com.findigital.blossom.fragments.MenuFragmentActivity;
+import com.findigital.blossom.fragments.MyCareerFragmentActivity;
 import com.findigital.blossom.fragments.SurveyFragmentActivity;
 import com.findigital.blossom.helpers.API;
 import com.findigital.blossom.helpers.DbHelper;
 import com.findigital.blossom.models.Career;
+import com.findigital.blossom.models.MyCareer;
 import com.findigital.blossom.models.Setting;
 import com.findigital.blossom.models.SurveyQuestion;
 import com.findigital.blossom.models.SurveyResponse;
@@ -54,14 +56,19 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         dbHelper = new DbHelper(getApplicationContext());
-
         user = dbHelper.getUser();
 
-        System.out.println(user.getCareerPathId());
+        MyCareer myCareer = dbHelper.getMyCareer();
 
         downloadQuestions();
         downloadSurveyResponses();
         downloadCareers();
+
+        if (user.getId() != null && myCareer.getId() != null) {
+            // User logged in
+            startActivity(new Intent(getApplicationContext(), MyCareerFragmentActivity.class));
+            finish();
+        }
 
         Integer displayIntro = 1;
         Setting setting = new Setting();

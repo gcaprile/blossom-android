@@ -633,5 +633,4 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
         db.close();
     }
-
 }
